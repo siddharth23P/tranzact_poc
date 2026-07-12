@@ -50,6 +50,13 @@ async function enqueueDocuments(jobId, documentCount, priority, { attempts = 3 }
         jobId: `${jobId}-${index}`,
         removeOnComplete: 1000,
         removeOnFail: false,
+        // Infra-level retries (e.g. the task is picked up in the small window
+        // before the API flips the job to 'queued' — the worker throws to
+        // requeue instead of dropping the task). Per-DOCUMENT render errors are
+        // caught inside the pipeline and recorded as manifest error entries;
+        // they never throw, so they are NOT retried by this.
+        attempts: 5,
+        backoff: { type: 'exponential', delay: 500 },
       },
     });
   }

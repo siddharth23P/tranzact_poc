@@ -6,9 +6,11 @@
   "type": "commonjs",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "generate": "node fixtures/generator.js"
   },
   "dependencies": {
+    "@faker-js/faker": "^8.4.1",
     "express": "^4.19.2"
   }
 }

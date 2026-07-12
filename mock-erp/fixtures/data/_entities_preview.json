@@ -1,0 +1,116 @@
+{
+  "purchaseOrders": [
+    {
+      "id": "PO-0000",
+      "poNumber": "PO/2026/00000",
+      "vendor": {
+        "name": "Schinner - Wiegand",
+        "address": "77551 Crist Club\nSouth Sammieborough, NM"
+      },
+      "buyer": {
+        "name": "Quigley LLC",
+        "address": "19789 Abagail Dam\nClarksville, NM"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Elegant Rubber Hat — Steel",
+          "quantity": 22,
+          "unitPrice": 116
+        },
+        {
+          "description": "Incredible Granite Soap — Plastic",
+          "quantity": 7,
+          "unitPrice": 234
+        },
+        {
+          "description": "Elegant Frozen Pants — Wooden",
+          "quantity": 23,
+          "unitPrice": 454
+        }
+      ],
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "PO-0001",
+      "poNumber": "PO/2026/00001",
+      "vendor": {
+        "name": "Mosciski, Dooley and Homenick",
+        "address": "9540 Park Street\nDachport, AR"
+      },
+      "buyer": {
+        "name": "White Group",
+        "address": "683 Afton Club\nLake Dayne, MN"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Handcrafted Bronze Soap — Cotton",
+          "quantity": 42,
+          "unitPrice": 172
+        },
+        {
+          "description": "Intelligent Fresh Shirt — Concrete",
+          "quantity": 10,
+          "unitPrice": 3313
+        },
+        {
+          "description": "Oriental Concrete Table — Granite",
+          "quantity": 11,
+          "unitPrice": 2734
+        },
+        {
+          "description": "Bespoke Wooden Chair — Frozen",
+          "quantity": 43,
+          "unitPrice": 3876
+        }
+      ],
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "PO-0002",
+      "poNumber": "PO/2026/00002",
+      "vendor": {
+        "name": "Weimann - Huels",
+        "address": "957 Green Lane\nNew Cletusmouth, AZ"
+      },
+      "buyer": {
+        "name": "Hane, Sporer and Howell",
+        "address": "358 Hermiston Walk\nNew Kari, IN"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Rustic Concrete Bacon — Bronze",
+          "quantity": 4,
+          "unitPrice": 79
+        },
+        {
+          "description": "Tasty Cotton Cheese — Plastic",
+          "quantity": 10,
+          "unitPrice": 1468
+        },
+        {
+          "description": "Small Steel Bacon — Wooden",
+          "quantity": 36,
+          "unitPrice": 3557
+        },
+        {
+          "description": "Handmade Soft Cheese — Rubber",
+          "quantity": 4,
+          "unitPrice": 4632
+        },
+        {
+          "description": "Fantastic Rubber Computer — Fresh",
+          "quantity": 44,
+          "unitPrice": 4251
+        }
+      ],
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    }
+  ],
+  "counts": {
+    "purchaseOrders": 120,
+    "invoices": 30
+  }
+}

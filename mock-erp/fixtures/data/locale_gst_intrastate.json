@@ -1,0 +1,35 @@
+{
+  "documents": [
+    {
+      "documentId": "GST-INTRA-1",
+      "type": "purchase_order",
+      "poNumber": "PO/MH/2026/00101",
+      "vendor": {
+        "name": "Bharat Steels Pvt Ltd",
+        "address": "MIDC Bhosari\nPune, Maharashtra"
+      },
+      "buyer": {
+        "name": "TranZact Manufacturing",
+        "address": "Andheri East\nMumbai, Maharashtra"
+      },
+      "currency": "INR",
+      "lineItems": [
+        {
+          "description": "MS Angle 50x50x6 — taxable 999.99 + CGST 9% + SGST 9% (intra-state MH→MH)",
+          "quantity": 1,
+          "unitPrice": 1179.99
+        },
+        {
+          "description": "CGST 9% on 999.99 = 90.00 (rounded from 89.9991)",
+          "quantity": 1,
+          "unitPrice": 90
+        },
+        {
+          "description": "SGST 9% on 999.99 = 90.00 (rounded from 89.9991)",
+          "quantity": 1,
+          "unitPrice": 90
+        }
+      ]
+    }
+  ]
+}

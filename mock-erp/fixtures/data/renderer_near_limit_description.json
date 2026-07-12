@@ -1,0 +1,20 @@
+{
+  "documents": [
+    {
+      "documentId": "NEARLIMIT-1",
+      "type": "purchase_order",
+      "poNumber": "PO-NL-1",
+      "vendor": {
+        "name": "Near Limit Vendor"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "NEARLIMIT-abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij",
+          "quantity": 2,
+          "unitPrice": 9.99
+        }
+      ]
+    }
+  ]
+}

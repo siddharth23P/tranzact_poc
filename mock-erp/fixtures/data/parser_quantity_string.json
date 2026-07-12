@@ -1,0 +1,19 @@
+{
+  "documents": [
+    {
+      "documentId": "QSTR-1",
+      "poNumber": "PO-1",
+      "vendor": {
+        "name": "V"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "ten of these",
+          "quantity": "ten",
+          "unitPrice": 5
+        }
+      ]
+    }
+  ]
+}

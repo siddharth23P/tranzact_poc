@@ -59,6 +59,7 @@ async function buildManifestPayload(job, { withUrls = true } = {}) {
         sha256: entry.sha256,
         byteSize: Number(entry.byte_size),
         renderStrategy: entry.render_strategy,
+        renderedAt: entry.created_at, // manifest-row timestamp (ledger truth)
         ...(withUrls ? { url: await s3.presignGet(entry.artifact_key, expirySeconds) } : {}),
       });
     } else {

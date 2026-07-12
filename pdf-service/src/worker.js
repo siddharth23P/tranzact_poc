@@ -46,7 +46,13 @@ function makeProcessor(pool, lane) {
       return;
     }
     // All-or-nothing guard: never render a job that isn't queued/processing.
-    // A task that leaked onto a failed/pending job is acked without rendering.
+    // 'pending' is a RACE, not a verdict — the task landed in the window
+    // between addBulk and the API's status='queued' flip. Throw so BullMQ
+    // requeues it (attempts+backoff on the task) instead of dropping it.
+    if (row.status === 'pending') {
+      throw new Error(`job ${jobId} still pending (enqueue not finalized) — retrying task`);
+    }
+    // 'failed'/terminal: task leaked onto a dead job — ack without rendering.
     if (row.status !== 'queued' && row.status !== 'processing') {
       logger.warn('job not renderable, skipping task', { jobId, documentIndex, status: row.status });
       return;

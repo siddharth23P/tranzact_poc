@@ -68,3 +68,19 @@ argv contains the literal string `src/server.js`. So it SIGTERM'd itself.
 **Fix:** Manage the API by PID: capture `$!` at launch into a pidfile and
 `kill "$(cat pidfile)"`. Avoid `pkill -f` with a pattern that appears in your
 own command line.
+
+## Worker acked tasks for jobs still in 'pending' (enqueue/queued race)
+
+**Symptom:** a 100-doc bulk job hung at 0/100 with empty queues; worker logs
+showed `job not renderable, skipping task ... status: pending` for every task.
+
+**Cause:** tasks become visible to the worker at `addBulk`, but the job row is
+only flipped to `queued` AFTER enqueue succeeds (deliberate all-or-nothing
+ordering). With an idle worker and many tasks, tasks were picked up inside that
+window; the state guard treated `pending` like a dead job and ACKED the tasks
+away, so they never ran again.
+
+**Fix:** `pending` is a race, not a verdict — the worker now throws for it so
+BullMQ requeues the task (tasks enqueue with `attempts: 5`, exponential
+backoff); only truly terminal statuses are skip-acked. Small jobs never hit the
+window, which is why phases 3–5 didn't catch it; `limits_bulk_100` did.

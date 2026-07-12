@@ -1,0 +1,35 @@
+{
+  "documents": [
+    {
+      "documentId": "ROUND-1",
+      "type": "purchase_order",
+      "poNumber": "PO-ROUND-1",
+      "vendor": {
+        "name": "Rounding Edge Cases Ltd"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "half-cent price: 0.005 (float is 0.00499…, renders 0.00)",
+          "quantity": 1,
+          "unitPrice": 0.005
+        },
+        {
+          "description": "near-ten: 9.995 (float is 9.99499…, renders 9.99)",
+          "quantity": 1,
+          "unitPrice": 9.995
+        },
+        {
+          "description": "repeating: 3 × 33.333 = 99.999 → 100.00",
+          "quantity": 3,
+          "unitPrice": 33.333
+        },
+        {
+          "description": "binary float artifact: 0.1 + 0.2 as a price",
+          "quantity": 1,
+          "unitPrice": 0.30000000000000004
+        }
+      ]
+    }
+  ]
+}

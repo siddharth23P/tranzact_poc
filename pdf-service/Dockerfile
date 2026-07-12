@@ -10,8 +10,11 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         chromium \
         fonts-liberation \
+        fonts-noto-core \
         ca-certificates \
     && rm -rf /var/lib/apt/lists/*
+# fonts-noto-core: Indic and other non-Latin scripts (locale fixtures) render
+# with real glyphs instead of fallback boxes.
 
 # puppeteer-core launches this binary (matches config default / .env CHROMIUM_PATH).
 ENV CHROMIUM_PATH=/usr/bin/chromium

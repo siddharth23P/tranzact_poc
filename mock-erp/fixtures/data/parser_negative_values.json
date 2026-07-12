@@ -1,0 +1,19 @@
+{
+  "documents": [
+    {
+      "documentId": "NEG-1",
+      "poNumber": "PO-1",
+      "vendor": {
+        "name": "V"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "negative",
+          "quantity": -3,
+          "unitPrice": -9.99
+        }
+      ]
+    }
+  ]
+}

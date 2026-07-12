@@ -5,9 +5,9 @@ API enqueues jobs onto Redis (BullMQ, single > bulk priority), Puppeteer render
 workers produce artifacts into S3 (MinIO locally), and job + tamper-evident
 manifest state lives in Postgres.
 
-> Build is phased. **Phase 5 (current): delivery — manifest endpoint + lazy zip
-> fallback.** See `docs/phase-1.md` … `docs/phase-5.md` for what's implemented
-> and how to verify each phase; the client contract lives in `docs/api.md`.
+> Build is phased. **Phase 6 (current): mock-erp + fixtures + real clients +
+> the stale-data proof.** See `docs/phase-1.md` … `docs/phase-6.md`; the client
+> contract lives in `docs/api.md`.
 
 ## Architecture (target)
 
@@ -62,7 +62,7 @@ Full verification (including the append-only ledger proof) is in
 2. ✅ `POST /jobs` (validate + snapshot-to-S3 + BullMQ enqueue) + `GET /jobs/{id}`
 3. ✅ Worker: BrowserPool + SinglePass render + SHA-256 + manifest + presigned URL
 4. ✅ ChunkedMerge strategy + selection threshold
-5. ✅ Manifest endpoint + lazy zip fallback + progress counters ← current
-6. mock-erp: entity CRUD + mutation endpoint + seeded fixtures generator
+5. ✅ Manifest endpoint + lazy zip fallback + progress counters
+6. ✅ mock-erp: entity CRUD + mutation endpoint + seeded fixtures generator ← current
 7. scenarios: stale-data proof, stress_burst, stress_interleave, chaos
 ```

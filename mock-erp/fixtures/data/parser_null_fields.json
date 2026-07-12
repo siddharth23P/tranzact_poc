@@ -1,0 +1,17 @@
+{
+  "documents": [
+    {
+      "documentId": null,
+      "poNumber": null,
+      "vendor": null,
+      "currency": null,
+      "lineItems": [
+        {
+          "description": null,
+          "quantity": null,
+          "unitPrice": null
+        }
+      ]
+    }
+  ]
+}

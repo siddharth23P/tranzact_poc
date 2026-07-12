@@ -1,0 +1,19 @@
+{
+  "documents": [
+    {
+      "documentId": "ROWS-0",
+      "type": "purchase_order",
+      "poNumber": "PO-ROWS-0",
+      "vendor": {
+        "name": "DuBuque - Buckridge",
+        "address": "9043 University Drive\nNorth Alize, LA"
+      },
+      "buyer": {
+        "name": "Dare - Feest",
+        "address": "852 Silver Street\nHesperia, AR"
+      },
+      "currency": "USD",
+      "lineItems": []
+    }
+  ]
+}

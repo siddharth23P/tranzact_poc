@@ -1,0 +1,34 @@
+{
+  "documents": [
+    {
+      "documentId": "DUP-1",
+      "poNumber": "PO-1",
+      "vendor": {
+        "name": "V"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "a",
+          "quantity": 1,
+          "unitPrice": 1
+        }
+      ]
+    },
+    {
+      "documentId": "DUP-1",
+      "poNumber": "PO-2",
+      "vendor": {
+        "name": "W"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "b",
+          "quantity": 1,
+          "unitPrice": 1
+        }
+      ]
+    }
+  ]
+}
