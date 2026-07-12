@@ -67,6 +67,24 @@ PDF contains `"Baseline Steel Works & Co"` / `"BASELINE-SNAPSHOT-VALUE …"`,
 zero occurrences of `MUTATED`; ERP live entity shows the mutated values.
 **PASSED.**
 
+## Phase-6 review answers
+
+**Q2 — `renderedAt` provenance (correction: NOT a migration).** `renderedAt`
+is `manifest_entries.created_at`, which has existed since migration **001**
+(`TIMESTAMPTZ NOT NULL DEFAULT now()`); phase 6 only started *exposing* it in
+the manifest payload. No schema change was made, so there is no migration 004
+and grants are untouched (nothing new to grant — the column was always
+readable/insertable under the table-level grants).
+
+**Clocks in the stale-data ordering assert:** the two sides come from
+*different clocks*. `renderedAt` is **Postgres `now()`** (DB server clock,
+stamped at manifest INSERT); the mutation timestamp is **`Date.now()` of the
+host running the scenario script** (captured right after the PUT returns). In
+the compose/local setups everything shares one physical machine clock, so the
+comparison is sound there; across real hosts it would be exposed to clock
+skew. A single-clock version would timestamp the mutation in Postgres too —
+noted as a limitation, not built.
+
 ## Verify
 
 ```bash

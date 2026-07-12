@@ -33,6 +33,23 @@ throughput for a hard latency bound. (Singles may still borrow bulk's free pages
 to reclaim that throughput when no bulk contention exists; the reservation only
 bites when both lanes are saturated.)
 
+## Task exhaustion & the missing reconciler (phase-6 review, Q1)
+
+**If the API dies between `addBulk` and the `status='queued'` flip, nothing —
+production would need a reconciler.** Precisely: each task of the stuck job
+retries 5 times (exponential backoff, ~15 s total) against the never-flipping
+`pending` row, then lands in the queue's **failed set**
+(`removeOnFail: false`, so it stays inspectable under `bull:render-*:failed`).
+No component sweeps the failed set, and no component marks the job row
+`failed` — the job sits in `pending` indefinitely and `GET /jobs/{id}` reports
+it as such. The missing production piece is a periodic reconciler that:
+(a) fails jobs stuck in `pending`/`processing` beyond a deadline,
+(b) drains or re-enqueues the failed set, and (c) re-derives per-document
+state from the manifest ledger (Postgres) + snapshot (S3) — which together
+contain everything needed to resume exactly the missing documents.
+Deliberately **not built** in this POC; `scenarios/chaos_flush_redis.js`
+demonstrates the same ledger-derived recovery performed by hand.
+
 ## Phase-3 implementation sketch
 
 - `BrowserPool` of `N` pages (e.g. `N=4`), `k` reserved (e.g. `k=1–2`, tuned).

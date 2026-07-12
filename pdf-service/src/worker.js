@@ -21,7 +21,9 @@ const progress = require('./progress');
 const s3 = require('./s3');
 
 const N = config.render.poolSize;
-const K = Math.max(1, config.render.singleReserved);
+// K=0 is a legitimate setting (reservation OFF — used by the stress_interleave
+// A/B run); the pool's bulkCap becomes N and singles get no reserved page.
+const K = Math.max(0, config.render.singleReserved);
 const BULK_CONCURRENCY = Math.max(1, N - K);
 
 // In-memory snapshot cache: load each job's frozen payload once, not per task.

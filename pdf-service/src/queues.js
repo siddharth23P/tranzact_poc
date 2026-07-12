@@ -39,10 +39,14 @@ function queueForPriority(priority) {
 //     always: all N tasks enqueued + status=queued, OR job=failed.
 //
 // (BullMQ forbids ':' in custom ids — reserved key delimiter — so we join '-'.)
-async function enqueueDocuments(jobId, documentCount, priority, { attempts = 3 } = {}) {
+// opts.indexes: enqueue only these document indexes (used by ledger-derived
+// recovery — e.g. re-enqueueing exactly the documents missing after a Redis
+// flush — instead of all 0..N-1).
+async function enqueueDocuments(jobId, documentCount, priority, { attempts = 3, indexes } = {}) {
   const queue = queueForPriority(priority);
   const jobs = [];
-  for (let index = 0; index < documentCount; index++) {
+  const indexList = indexes ?? Array.from({ length: documentCount }, (_, i) => i);
+  for (const index of indexList) {
     jobs.push({
       name: 'render-document',
       data: { jobId, documentIndex: index },

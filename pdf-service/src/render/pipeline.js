@@ -13,6 +13,17 @@ const manifest = require('../manifest');
 const progress = require('../progress');
 const logger = require('../logger');
 
+// Error classification. INFRASTRUCTURE failures (browser/page death, network,
+// storage) are transient: the task must be RETRIED by BullMQ, not sealed as a
+// per-document error. Only DOCUMENT-level failures (the data itself cannot
+// render) become manifest error entries. AWS SDK errors carry $metadata.
+const INFRA_ERROR_RE =
+  /protocol error|target closed|session closed|browser has disconnected|connection closed|browser was not found|detached frame|frame.*detached|browser.*closed|econnrefused|econnreset|etimedout|eai_again|epipe|socket hang up|net::err/i;
+
+function isInfraError(err) {
+  return INFRA_ERROR_RE.test(err.message || '') || err.$metadata !== undefined;
+}
+
 // Render one document and record it. `lane` ('single' | 'bulk') is threaded to
 // the BrowserPool so the reservation is enforced structurally. Never throws for
 // a per-document render error — records an error manifest entry instead
@@ -44,6 +55,16 @@ async function renderDocument({ pool, jobId, documentIndex, doc, lane = 'single'
     });
     return { status: 'rendered', strategy, artifactKey: key, sha256, byteSize, manifestId: entry.id };
   } catch (err) {
+    // Transient infra failure (browser killed, storage/network down): rethrow
+    // so BullMQ retries the whole task — the document is NOT failed.
+    if (isInfraError(err)) {
+      logger.warn('infra error during render — task will retry', {
+        jobId,
+        documentIndex,
+        error: err.message,
+      });
+      throw err;
+    }
     logger.error('document render failed', { jobId, documentIndex, error: err.message });
     await manifest.appendError({
       jobId,

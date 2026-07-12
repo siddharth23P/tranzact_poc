@@ -37,3 +37,10 @@ for).
   memory under a 50-singles/5s burst; `stress_interleave` records the single-task
   p95 delta with/without the reserved-capacity setting. Those supersede the
   single-sample numbers here.
+
+### Chaos (authoring environment, local-uncapped — container re-run pending)
+
+| Date (UTC) | What | Value | Conditions / caveats |
+|---|---|---|---|
+| 2026-07-12 | chaos_kill_chromium (10×400r, kill@1.2s) | recovered — 10/10 in 5.4s, 3 interrupted tasks retried, 0 sealed errors | local Chromium killed via pkill -9; BrowserPool relaunched; local-uncapped |
+| 2026-07-12 | chaos_flush_redis (60×30r, flush@20) | ledger intact 24/60 rendered (hash-verified); job stuck as designed; reconciler-by-hand recovered to 60/60 | FLUSHALL local redis; recovery = seed counters from ledger + re-enqueue 36 missing; local-uncapped |

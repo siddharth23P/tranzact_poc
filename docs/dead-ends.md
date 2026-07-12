@@ -84,3 +84,18 @@ away, so they never ran again.
 BullMQ requeues the task (tasks enqueue with `attempts: 5`, exponential
 backoff); only truly terminal statuses are skip-acked. Small jobs never hit the
 window, which is why phases 3–5 didn't catch it; `limits_bulk_100` did.
+
+## Chromium kill produced "detached Frame" errors that bypassed infra classification
+
+**Symptom:** chaos_kill_chromium ended `completed_with_errors` — 3 interrupted
+renders were sealed as per-document error entries reading
+`Attempted to use detached Frame '…'` instead of being retried.
+
+**Cause:** the infra-vs-document error classifier matched the usual
+puppeteer death signatures (`Protocol error`, `Target closed`, …) but not the
+detached-frame variant thrown when the browser dies mid-`setContent`/`pdf`.
+
+**Fix:** added `detached frame` / `frame…detached` to INFRA_ERROR_RE so those
+throw and BullMQ retries the task. The chaos script now also fails as
+INCONCLUSIVE when zero tasks show attemptsMade>1 (kill landed between renders),
+so a lucky-timing run can't masquerade as a pass.

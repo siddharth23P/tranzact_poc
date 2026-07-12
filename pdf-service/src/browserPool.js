@@ -45,6 +45,49 @@ class BrowserPool {
     this.started = false;
   }
 
+  _browserAlive() {
+    if (!this.browser) return false;
+    // puppeteer-core v23 exposes .connected; older versions isConnected().
+    return this.browser.connected ?? this.browser.isConnected?.() ?? false;
+  }
+
+  async _launchBrowser() {
+    this.browser = await puppeteer.launch({
+      executablePath: this.executablePath,
+      headless: true,
+      args: LAUNCH_ARGS,
+    });
+    this.idle = [];
+    this.all = [];
+    for (let i = 0; i < this.size; i++) {
+      const page = await this.browser.newPage();
+      this.all.push(page);
+      this.idle.push(page);
+    }
+  }
+
+  // Chaos resilience: if Chromium dies (kill -9, OOM), rebuild the whole pool
+  // once — concurrent callers await the same relaunch. In-flight tasks fail
+  // with an infra error (BullMQ retries them); waiters are served fresh pages.
+  async _relaunch() {
+    if (this.relaunching) return this.relaunching;
+    logger.warn('browser gone — relaunching pool');
+    this.relaunching = (async () => {
+      try {
+        if (this.browser) await this.browser.close();
+      } catch (_) {
+        /* already dead */
+      }
+      this.browser = null;
+      await this._launchBrowser();
+      logger.info('browser pool relaunched', { pages: this.all.length });
+      this._dispatch();
+    })().finally(() => {
+      this.relaunching = null;
+    });
+    return this.relaunching;
+  }
+
   async start() {
     if (this.started) return;
     logger.info('launching chromium', {
@@ -53,16 +96,7 @@ class BrowserPool {
       reservedForSingle: this.reserved,
       bulkCap: this.bulkCap,
     });
-    this.browser = await puppeteer.launch({
-      executablePath: this.executablePath,
-      headless: true,
-      args: LAUNCH_ARGS,
-    });
-    for (let i = 0; i < this.size; i++) {
-      const page = await this.browser.newPage();
-      this.all.push(page);
-      this.idle.push(page);
-    }
+    await this._launchBrowser();
     this.started = true;
     logger.info('browser pool ready', { pages: this.all.length });
   }
@@ -97,11 +131,15 @@ class BrowserPool {
   }
 
   // Return a page to the pool. `lane` MUST match the acquire lane so bulk's
-  // in-flight counter is balanced. Best-effort reset; a page that fails to
-  // reset is replaced so it can't wedge the pool.
+  // in-flight counter is balanced. Best-effort reset; a poisoned page is
+  // replaced, and a dead BROWSER triggers a full pool relaunch.
   async release(page, lane = 'single') {
     if (lane === 'bulk') {
       this.bulkInFlight = Math.max(0, this.bulkInFlight - 1);
+    }
+    if (!this._browserAlive()) {
+      await this._relaunch();
+      return; // relaunch rebuilt idle pages and dispatched waiters
     }
     try {
       await page.goto('about:blank');
@@ -112,12 +150,28 @@ class BrowserPool {
       } catch (_) {
         /* ignore */
       }
+      if (!this._browserAlive()) {
+        await this._relaunch();
+        return;
+      }
       const idx = this.all.indexOf(page);
       try {
         page = await this.browser.newPage();
-        if (idx >= 0) this.all[idx] = page;
-        else this.all.push(page);
+        if (idx >= 0) {
+          this.all[idx] = page;
+        } else if (this.all.length < this.size) {
+          this.all.push(page);
+        } else {
+          // A stale page from before a relaunch — the pool is already full.
+          try { await page.close(); } catch (_) { /* ignore */ }
+          this._dispatch();
+          return;
+        }
       } catch (err2) {
+        if (!this._browserAlive()) {
+          await this._relaunch();
+          return;
+        }
         logger.error('failed to replace page', { error: err2.message });
         this._dispatch();
         return;

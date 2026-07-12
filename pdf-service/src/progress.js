@@ -32,6 +32,19 @@ async function init(jobId, total) {
     .exec();
 }
 
+// Seed counters to explicit values (ledger-derived recovery: after a Redis
+// flush, restore completed/failed from the manifest before re-enqueueing the
+// missing documents). Clears any stale finalize marker.
+async function seed(jobId, { completed, failed, total }) {
+  const r = getRedis();
+  await r
+    .multi()
+    .hset(key(jobId), { completed, failed, total })
+    .expire(key(jobId), TTL_SECONDS)
+    .del(`job:${jobId}:finalized`)
+    .exec();
+}
+
 // Atomic per-document increment. field ∈ {'completed','failed'}.
 async function increment(jobId, field) {
   if (field !== 'completed' && field !== 'failed') {
@@ -100,6 +113,7 @@ async function flushToJobsRow(jobId, finalStatus) {
 
 module.exports = {
   init,
+  seed,
   increment,
   readLive,
   claimFinalizeIfDone,

@@ -5,9 +5,9 @@ API enqueues jobs onto Redis (BullMQ, single > bulk priority), Puppeteer render
 workers produce artifacts into S3 (MinIO locally), and job + tamper-evident
 manifest state lives in Postgres.
 
-> Build is phased. **Phase 6 (current): mock-erp + fixtures + real clients +
-> the stale-data proof.** See `docs/phase-1.md` … `docs/phase-6.md`; the client
-> contract lives in `docs/api.md`.
+> Build is phased. **Phase 7 (current): stress/chaos scripts + runbook** —
+> execute per `docs/stress-runbook.md` on a Docker-capable host. See
+> `docs/phase-1.md` … `docs/phase-6.md` and `docs/api.md`.
 
 ## Architecture (target)
 
@@ -63,6 +63,6 @@ Full verification (including the append-only ledger proof) is in
 3. ✅ Worker: BrowserPool + SinglePass render + SHA-256 + manifest + presigned URL
 4. ✅ ChunkedMerge strategy + selection threshold
 5. ✅ Manifest endpoint + lazy zip fallback + progress counters
-6. ✅ mock-erp: entity CRUD + mutation endpoint + seeded fixtures generator ← current
-7. scenarios: stale-data proof, stress_burst, stress_interleave, chaos
+6. ✅ mock-erp: entity CRUD + mutation endpoint + seeded fixtures generator
+7. ✅ scenarios: stress_burst, stress_interleave, oom_probe, chaos ← current (scripts + runbook; container numbers to be produced per docs/stress-runbook.md)
 ```
