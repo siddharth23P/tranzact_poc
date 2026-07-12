@@ -1,0 +1,14 @@
+{
+  "name": "mock-erp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Mock ERP stub — entity CRUD + fixtures (fleshed out in phase 6)",
+  "type": "commonjs",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
