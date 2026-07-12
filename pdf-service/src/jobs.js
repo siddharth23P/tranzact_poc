@@ -4,34 +4,66 @@
 
 const db = require('./db');
 
-// Insert a new job row. If an idempotency key is supplied and already exists,
-// no new row is created and the existing job is returned with created=false.
-// Concurrency-safe via ON CONFLICT on the unique idempotency_key.
+// Status lifecycle:
+//   pending    -> row exists, NOT yet snapshotted/enqueued (unique-key gate)
+//   queued     -> snapshot written AND all tasks enqueued (set last)
+//   processing -> a worker has started at least one task
+//   completed  -> terminal (flushed from Redis counters)
+//   failed     -> terminal error (snapshot/enqueue failed, or all docs errored)
+//
+// The route sets 'queued' only AFTER enqueue succeeds, so there is never a
+// window where status='queued' but tasks are missing. A worker (phase 3) only
+// renders tasks whose job is in {queued, processing}; a 'pending'/'failed' job
+// never produces artifacts even if a task leaked into the queue — which is what
+// makes enqueue all-or-nothing *from the job's perspective*.
+
+const UNIQUE_VIOLATION = '23505';
+
+// Insert a new job row in 'pending'. If an idempotency key is supplied and
+// already exists, no new row is created and the existing job is returned with
+// created=false. Concurrency-safe: the unique idempotency_key is the gate, and
+// we handle both the ON CONFLICT path and a raw 23505 (belt and suspenders) so
+// the racing loser always gets the existing job back — never a 500.
 async function insertJob({ id, idempotencyKey, priority, totalDocuments, snapshotKey }) {
-  if (idempotencyKey) {
+  if (!idempotencyKey) {
+    const { rows } = await db.appPool.query(
+      `INSERT INTO jobs (id, status, priority, total_documents, snapshot_key)
+       VALUES ($1, 'pending', $2, $3, $4)
+       RETURNING *`,
+      [id, priority, totalDocuments, snapshotKey]
+    );
+    return { job: rows[0], created: true };
+  }
+
+  try {
     const { rows } = await db.appPool.query(
       `INSERT INTO jobs (id, idempotency_key, status, priority, total_documents, snapshot_key)
-       VALUES ($1, $2, 'queued', $3, $4, $5)
+       VALUES ($1, $2, 'pending', $3, $4, $5)
        ON CONFLICT (idempotency_key) DO NOTHING
        RETURNING *`,
       [id, idempotencyKey, priority, totalDocuments, snapshotKey]
     );
     if (rows.length > 0) return { job: rows[0], created: true };
 
-    // Conflict: a job with this key already exists — return it.
-    const existing = await db.appPool.query('SELECT * FROM jobs WHERE idempotency_key = $1', [
-      idempotencyKey,
-    ]);
-    return { job: existing.rows[0], created: false };
+    // ON CONFLICT swallowed the insert — a job with this key already exists.
+    // (ON CONFLICT waits for a concurrent inserter to commit, so by here the
+    // winner's row is visible.)
+    return { job: await getByIdempotencyKey(idempotencyKey), created: false };
+  } catch (err) {
+    // Defensive: if the conflict ever surfaces as a raw unique violation
+    // (e.g. a different conflict path), treat it as an idempotent replay.
+    if (err.code === UNIQUE_VIOLATION) {
+      return { job: await getByIdempotencyKey(idempotencyKey), created: false };
+    }
+    throw err;
   }
+}
 
-  const { rows } = await db.appPool.query(
-    `INSERT INTO jobs (id, status, priority, total_documents, snapshot_key)
-     VALUES ($1, 'queued', $2, $3, $4)
-     RETURNING *`,
-    [id, priority, totalDocuments, snapshotKey]
-  );
-  return { job: rows[0], created: true };
+async function getByIdempotencyKey(idempotencyKey) {
+  const { rows } = await db.appPool.query('SELECT * FROM jobs WHERE idempotency_key = $1', [
+    idempotencyKey,
+  ]);
+  return rows[0] || null;
 }
 
 async function setStatus(id, status, errorMessage) {
@@ -48,4 +80,4 @@ async function getById(id) {
   return rows[0] || null;
 }
 
-module.exports = { insertJob, setStatus, getById };
+module.exports = { insertJob, setStatus, getById, getByIdempotencyKey };

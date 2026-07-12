@@ -33,9 +33,16 @@ function serializeJob(job, { idempotent, progressSource, completed, failed }) {
 }
 
 // POST /jobs — create a single or bulk job.
-// Order of operations is deliberate: validate → persist job row → snapshot to
-// S3 → init progress → enqueue. The snapshot is written BEFORE enqueue so a
-// worker can never observe a task without its frozen payload.
+//
+// Operation order is load-bearing (see phase-2 review):
+//   1. validate
+//   2. INSERT job row as 'pending'  <-- unique idempotency_key gates here FIRST,
+//      so concurrent duplicates can never double-snapshot or orphan tasks
+//   3. snapshot full payload to S3   (BEFORE enqueue)
+//   4. init Redis progress counters
+//   5. enqueue all tasks (all-or-nothing; retried, deterministic ids)
+//   6. set status='queued'           (LAST — never 'queued' with missing tasks)
+// Any failure in 3–5 marks the job 'failed' with a clear error and returns 502.
 router.post('/jobs', async (req, res) => {
   const body = req.body;
 
@@ -105,7 +112,8 @@ router.post('/jobs', async (req, res) => {
     return res.status(502).json({ error: 'enqueue_failed', message: 'could not initialise progress' });
   }
 
-  // 5) Enqueue one task per document onto the priority-appropriate queue.
+  // 5) Enqueue one task per document onto the priority-appropriate queue
+  //    (all-or-nothing; retried with deterministic ids).
   try {
     const enq = await queues.enqueueDocuments(job.id, total, priority);
     logger.info('job enqueued', { jobId: job.id, priority, ...enq });
@@ -115,7 +123,18 @@ router.post('/jobs', async (req, res) => {
     return res.status(502).json({ error: 'enqueue_failed', message: 'could not enqueue render tasks' });
   }
 
-  return res.status(201).json(serializeJob(job, { idempotent: false }));
+  // 6) Promote to 'queued' LAST — now every task is enqueued and the snapshot
+  //    exists. Only from here can a worker legitimately render this job.
+  let queuedJob = job;
+  try {
+    queuedJob = await jobsRepo.setStatus(job.id, 'queued');
+  } catch (err) {
+    // Tasks are enqueued and idempotent; failing to flip the flag is not fatal
+    // to correctness, but surface it. The job stays 'pending' and can be re-driven.
+    logger.error('status->queued failed', { jobId: job.id, error: err.message });
+  }
+
+  return res.status(201).json(serializeJob(queuedJob, { idempotent: false }));
 });
 
 // GET /jobs/:id — status + progress. Live counters come from Redis while the

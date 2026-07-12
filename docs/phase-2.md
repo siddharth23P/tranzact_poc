@@ -25,6 +25,31 @@
 - **Priority inferred from document count**: 1 → `single`, 2..100 → `bulk`.
   Empty array and >100 are rejected.
 
+## Phase-2 review fixes (issues 1–3)
+
+1. **Enqueue is all-or-nothing from the job's perspective.** Status lifecycle:
+   row inserted as `pending`, promoted to `queued` **only after** the snapshot
+   is written and all tasks are enqueued. `enqueueDocuments` uses a single
+   `addBulk` with deterministic task ids (`${jobId}-${index}`) and retries on
+   partial failure — the ids make the retry converge to exactly N tasks. If it
+   still fails, the job is marked `failed` with a clear error and the API returns
+   `502`; a worker only renders tasks whose job is `queued`/`processing`, so a
+   leaked task on a `failed` job never renders. Proof:
+   `npm run prove:enqueue-atomic` (forces enqueue to throw → job `failed`, clean
+   502, nothing left `queued`).
+2. **Idempotency under concurrency.** Exact order: **insert job row first**
+   (unique `idempotency_key` gates) → snapshot → enqueue → `status=queued`. Only
+   the creator (`created=true`) snapshots/enqueues; concurrent duplicates return
+   the existing job (`200 idempotent:true`), handled via both `ON CONFLICT DO
+   NOTHING` and an explicit `23505` catch — the racing loser never gets a 500.
+   Verified with 8 concurrent same-key requests: 1 created, 7 replays, same id,
+   zero 5xx.
+3. **Queue design decided:** two queues with **reserved worker capacity for
+   singles** (not single-queue priority). Rationale in `docs/queueing.md` —
+   BullMQ priority only orders the waiting list and can't preempt in-flight bulk
+   renders, so it can't hard-guarantee the 5s single SLA under a bulk backlog;
+   reserving `k` Chromium pages for singles can. Implemented in phase 3.
+
 ## Follow-ups from phase-1 review (done in this phase)
 
 1. **Runtime role usage proven, not just role existence.** Three-role model:

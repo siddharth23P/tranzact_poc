@@ -25,11 +25,21 @@ function queueForPriority(priority) {
   return priority === 'single' ? singleQueue : bulkQueue;
 }
 
-// Enqueue one task per document into the priority-appropriate queue. Task job
-// ids are deterministic (`${jobId}-${index}`) so a retried enqueue de-dupes at
-// the BullMQ layer instead of double-rendering. (BullMQ forbids ':' in custom
-// ids — it's a reserved key delimiter — so we join with '-'.)
-async function enqueueDocuments(jobId, documentCount, priority) {
+// Enqueue one task per document into the priority-appropriate queue.
+//
+// All-or-nothing from the job's perspective:
+//   - Task job ids are deterministic (`${jobId}-${index}`), so BullMQ de-dupes
+//     — a re-run adds only the missing tasks, never a duplicate render.
+//   - We use a single addBulk (near-atomic pipeline) and, if it throws after a
+//     partial add, RETRY. Because of the deterministic ids the retry converges
+//     to exactly N tasks present.
+//   - If it still fails, we throw. The caller then marks the job 'failed', and
+//     the worker guard (only render tasks whose job is queued/processing) means
+//     any task that did leak into the queue is never rendered. So the outcome is
+//     always: all N tasks enqueued + status=queued, OR job=failed.
+//
+// (BullMQ forbids ':' in custom ids — reserved key delimiter — so we join '-'.)
+async function enqueueDocuments(jobId, documentCount, priority, { attempts = 3 } = {}) {
   const queue = queueForPriority(priority);
   const jobs = [];
   for (let index = 0; index < documentCount; index++) {
@@ -43,8 +53,19 @@ async function enqueueDocuments(jobId, documentCount, priority) {
       },
     });
   }
-  await queue.addBulk(jobs);
-  return { queue: queue.name, enqueued: jobs.length };
+
+  let lastErr;
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    try {
+      await queue.addBulk(jobs);
+      return { queue: queue.name, enqueued: jobs.length, attempts: attempt };
+    } catch (err) {
+      lastErr = err;
+      // brief backoff before retrying the (idempotent) bulk add
+      await new Promise((r) => setTimeout(r, 100 * attempt));
+    }
+  }
+  throw lastErr;
 }
 
 async function counts() {

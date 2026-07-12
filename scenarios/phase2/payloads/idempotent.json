@@ -1,0 +1,31 @@
+{
+  "idempotencyKey": "order-batch-42",
+  "documents": [
+    {
+      "documentId": "DOC-0",
+      "type": "purchase_order",
+      "poNumber": "PO-1000",
+      "vendor": {
+        "name": "Vendor 0",
+        "address": "0 Market St, Springfield"
+      },
+      "buyer": {
+        "name": "TranZact ERP",
+        "address": "500 Enterprise Way"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Item 1 for PO 1000",
+          "quantity": 1,
+          "unitPrice": 3.5
+        },
+        {
+          "description": "Item 2 for PO 1000",
+          "quantity": 2,
+          "unitPrice": 7
+        }
+      ]
+    }
+  ]
+}
