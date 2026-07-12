@@ -1,0 +1,2604 @@
+{
+  "documents": [
+    {
+      "documentId": "BULK100-000",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-0",
+      "vendor": {
+        "name": "Vendor 0"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 0",
+          "quantity": 1,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 0",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 0",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-001",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-1",
+      "vendor": {
+        "name": "Vendor 1"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 1",
+          "quantity": 2,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 1",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 1",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-002",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-2",
+      "vendor": {
+        "name": "Vendor 2"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 2",
+          "quantity": 3,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 2",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 2",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-003",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-3",
+      "vendor": {
+        "name": "Vendor 3"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 3",
+          "quantity": 4,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 3",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 3",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-004",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-4",
+      "vendor": {
+        "name": "Vendor 4"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 4",
+          "quantity": 5,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 4",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 4",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-005",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-5",
+      "vendor": {
+        "name": "Vendor 5"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 5",
+          "quantity": 1,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 5",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 5",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-006",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-6",
+      "vendor": {
+        "name": "Vendor 6"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 6",
+          "quantity": 2,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 6",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 6",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-007",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-7",
+      "vendor": {
+        "name": "Vendor 7"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 7",
+          "quantity": 3,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 7",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 7",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-008",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-8",
+      "vendor": {
+        "name": "Vendor 8"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 8",
+          "quantity": 4,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 8",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 8",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-009",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-9",
+      "vendor": {
+        "name": "Vendor 9"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 9",
+          "quantity": 5,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 9",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 9",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-010",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-10",
+      "vendor": {
+        "name": "Vendor 10"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 10",
+          "quantity": 1,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 10",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 10",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-011",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-11",
+      "vendor": {
+        "name": "Vendor 11"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 11",
+          "quantity": 2,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 11",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 11",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-012",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-12",
+      "vendor": {
+        "name": "Vendor 12"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 12",
+          "quantity": 3,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 12",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 12",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-013",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-13",
+      "vendor": {
+        "name": "Vendor 13"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 13",
+          "quantity": 4,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 13",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 13",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-014",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-14",
+      "vendor": {
+        "name": "Vendor 14"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 14",
+          "quantity": 5,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 14",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 14",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-015",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-15",
+      "vendor": {
+        "name": "Vendor 15"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 15",
+          "quantity": 1,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 15",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 15",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-016",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-16",
+      "vendor": {
+        "name": "Vendor 16"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 16",
+          "quantity": 2,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 16",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 16",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-017",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-17",
+      "vendor": {
+        "name": "Vendor 17"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 17",
+          "quantity": 3,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 17",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 17",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-018",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-18",
+      "vendor": {
+        "name": "Vendor 18"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 18",
+          "quantity": 4,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 18",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 18",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-019",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-19",
+      "vendor": {
+        "name": "Vendor 19"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 19",
+          "quantity": 5,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 19",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 19",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-020",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-20",
+      "vendor": {
+        "name": "Vendor 20"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 20",
+          "quantity": 1,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 20",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 20",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-021",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-21",
+      "vendor": {
+        "name": "Vendor 21"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 21",
+          "quantity": 2,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 21",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 21",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-022",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-22",
+      "vendor": {
+        "name": "Vendor 22"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 22",
+          "quantity": 3,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 22",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 22",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-023",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-23",
+      "vendor": {
+        "name": "Vendor 23"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 23",
+          "quantity": 4,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 23",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 23",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-024",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-24",
+      "vendor": {
+        "name": "Vendor 24"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 24",
+          "quantity": 5,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 24",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 24",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-025",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-25",
+      "vendor": {
+        "name": "Vendor 25"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 25",
+          "quantity": 1,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 25",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 25",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-026",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-26",
+      "vendor": {
+        "name": "Vendor 26"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 26",
+          "quantity": 2,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 26",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 26",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-027",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-27",
+      "vendor": {
+        "name": "Vendor 27"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 27",
+          "quantity": 3,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 27",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 27",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-028",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-28",
+      "vendor": {
+        "name": "Vendor 28"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 28",
+          "quantity": 4,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 28",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 28",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-029",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-29",
+      "vendor": {
+        "name": "Vendor 29"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 29",
+          "quantity": 5,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 29",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 29",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-030",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-30",
+      "vendor": {
+        "name": "Vendor 30"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 30",
+          "quantity": 1,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 30",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 30",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-031",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-31",
+      "vendor": {
+        "name": "Vendor 31"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 31",
+          "quantity": 2,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 31",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 31",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-032",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-32",
+      "vendor": {
+        "name": "Vendor 32"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 32",
+          "quantity": 3,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 32",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 32",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-033",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-33",
+      "vendor": {
+        "name": "Vendor 33"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 33",
+          "quantity": 4,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 33",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 33",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-034",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-34",
+      "vendor": {
+        "name": "Vendor 34"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 34",
+          "quantity": 5,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 34",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 34",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-035",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-35",
+      "vendor": {
+        "name": "Vendor 35"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 35",
+          "quantity": 1,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 35",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 35",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-036",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-36",
+      "vendor": {
+        "name": "Vendor 36"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 36",
+          "quantity": 2,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 36",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 36",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-037",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-37",
+      "vendor": {
+        "name": "Vendor 37"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 37",
+          "quantity": 3,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 37",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 37",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-038",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-38",
+      "vendor": {
+        "name": "Vendor 38"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 38",
+          "quantity": 4,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 38",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 38",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-039",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-39",
+      "vendor": {
+        "name": "Vendor 39"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 39",
+          "quantity": 5,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 39",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 39",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-040",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-40",
+      "vendor": {
+        "name": "Vendor 40"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 40",
+          "quantity": 1,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 40",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 40",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-041",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-41",
+      "vendor": {
+        "name": "Vendor 41"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 41",
+          "quantity": 2,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 41",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 41",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-042",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-42",
+      "vendor": {
+        "name": "Vendor 42"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 42",
+          "quantity": 3,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 42",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 42",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-043",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-43",
+      "vendor": {
+        "name": "Vendor 43"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 43",
+          "quantity": 4,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 43",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 43",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-044",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-44",
+      "vendor": {
+        "name": "Vendor 44"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 44",
+          "quantity": 5,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 44",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 44",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-045",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-45",
+      "vendor": {
+        "name": "Vendor 45"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 45",
+          "quantity": 1,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 45",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 45",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-046",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-46",
+      "vendor": {
+        "name": "Vendor 46"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 46",
+          "quantity": 2,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 46",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 46",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-047",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-47",
+      "vendor": {
+        "name": "Vendor 47"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 47",
+          "quantity": 3,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 47",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 47",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-048",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-48",
+      "vendor": {
+        "name": "Vendor 48"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 48",
+          "quantity": 4,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 48",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 48",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-049",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-49",
+      "vendor": {
+        "name": "Vendor 49"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 49",
+          "quantity": 5,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 49",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 49",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-050",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-50",
+      "vendor": {
+        "name": "Vendor 50"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 50",
+          "quantity": 1,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 50",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 50",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-051",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-51",
+      "vendor": {
+        "name": "Vendor 51"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 51",
+          "quantity": 2,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 51",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 51",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-052",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-52",
+      "vendor": {
+        "name": "Vendor 52"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 52",
+          "quantity": 3,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 52",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 52",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-053",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-53",
+      "vendor": {
+        "name": "Vendor 53"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 53",
+          "quantity": 4,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 53",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 53",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-054",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-54",
+      "vendor": {
+        "name": "Vendor 54"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 54",
+          "quantity": 5,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 54",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 54",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-055",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-55",
+      "vendor": {
+        "name": "Vendor 55"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 55",
+          "quantity": 1,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 55",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 55",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-056",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-56",
+      "vendor": {
+        "name": "Vendor 56"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 56",
+          "quantity": 2,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 56",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 56",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-057",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-57",
+      "vendor": {
+        "name": "Vendor 57"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 57",
+          "quantity": 3,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 57",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 57",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-058",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-58",
+      "vendor": {
+        "name": "Vendor 58"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 58",
+          "quantity": 4,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 58",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 58",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-059",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-59",
+      "vendor": {
+        "name": "Vendor 59"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 59",
+          "quantity": 5,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 59",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 59",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-060",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-60",
+      "vendor": {
+        "name": "Vendor 60"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 60",
+          "quantity": 1,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 60",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 60",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-061",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-61",
+      "vendor": {
+        "name": "Vendor 61"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 61",
+          "quantity": 2,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 61",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 61",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-062",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-62",
+      "vendor": {
+        "name": "Vendor 62"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 62",
+          "quantity": 3,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 62",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 62",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-063",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-63",
+      "vendor": {
+        "name": "Vendor 63"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 63",
+          "quantity": 4,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 63",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 63",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-064",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-64",
+      "vendor": {
+        "name": "Vendor 64"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 64",
+          "quantity": 5,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 64",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 64",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-065",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-65",
+      "vendor": {
+        "name": "Vendor 65"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 65",
+          "quantity": 1,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 65",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 65",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-066",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-66",
+      "vendor": {
+        "name": "Vendor 66"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 66",
+          "quantity": 2,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 66",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 66",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-067",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-67",
+      "vendor": {
+        "name": "Vendor 67"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 67",
+          "quantity": 3,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 67",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 67",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-068",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-68",
+      "vendor": {
+        "name": "Vendor 68"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 68",
+          "quantity": 4,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 68",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 68",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-069",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-69",
+      "vendor": {
+        "name": "Vendor 69"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 69",
+          "quantity": 5,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 69",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 69",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-070",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-70",
+      "vendor": {
+        "name": "Vendor 70"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 70",
+          "quantity": 1,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 70",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 70",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-071",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-71",
+      "vendor": {
+        "name": "Vendor 71"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 71",
+          "quantity": 2,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 71",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 71",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-072",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-72",
+      "vendor": {
+        "name": "Vendor 72"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 72",
+          "quantity": 3,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 72",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 72",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-073",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-73",
+      "vendor": {
+        "name": "Vendor 73"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 73",
+          "quantity": 4,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 73",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 73",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-074",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-74",
+      "vendor": {
+        "name": "Vendor 74"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 74",
+          "quantity": 5,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 74",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 74",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-075",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-75",
+      "vendor": {
+        "name": "Vendor 75"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 75",
+          "quantity": 1,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 75",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 75",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-076",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-76",
+      "vendor": {
+        "name": "Vendor 76"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 76",
+          "quantity": 2,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 76",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 76",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-077",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-77",
+      "vendor": {
+        "name": "Vendor 77"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 77",
+          "quantity": 3,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 77",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 77",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-078",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-78",
+      "vendor": {
+        "name": "Vendor 78"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 78",
+          "quantity": 4,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 78",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 78",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-079",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-79",
+      "vendor": {
+        "name": "Vendor 79"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 79",
+          "quantity": 5,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 79",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 79",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-080",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-80",
+      "vendor": {
+        "name": "Vendor 80"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 80",
+          "quantity": 1,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 80",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 80",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-081",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-81",
+      "vendor": {
+        "name": "Vendor 81"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 81",
+          "quantity": 2,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 81",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 81",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-082",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-82",
+      "vendor": {
+        "name": "Vendor 82"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 82",
+          "quantity": 3,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 82",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 82",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-083",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-83",
+      "vendor": {
+        "name": "Vendor 83"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 83",
+          "quantity": 4,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 83",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 83",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-084",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-84",
+      "vendor": {
+        "name": "Vendor 84"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 84",
+          "quantity": 5,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 84",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 84",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-085",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-85",
+      "vendor": {
+        "name": "Vendor 85"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 85",
+          "quantity": 1,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 85",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 85",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-086",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-86",
+      "vendor": {
+        "name": "Vendor 86"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 86",
+          "quantity": 2,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 86",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 86",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-087",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-87",
+      "vendor": {
+        "name": "Vendor 87"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 87",
+          "quantity": 3,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 87",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 87",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-088",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-88",
+      "vendor": {
+        "name": "Vendor 88"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 88",
+          "quantity": 4,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 88",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 88",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-089",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-89",
+      "vendor": {
+        "name": "Vendor 89"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 89",
+          "quantity": 5,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 89",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 89",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-090",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-90",
+      "vendor": {
+        "name": "Vendor 90"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 90",
+          "quantity": 1,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 90",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 90",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-091",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-91",
+      "vendor": {
+        "name": "Vendor 91"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 91",
+          "quantity": 2,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 91",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 91",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-092",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-92",
+      "vendor": {
+        "name": "Vendor 92"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 92",
+          "quantity": 3,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 92",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 92",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-093",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-93",
+      "vendor": {
+        "name": "Vendor 93"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 93",
+          "quantity": 4,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 93",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 93",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-094",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-94",
+      "vendor": {
+        "name": "Vendor 94"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 94",
+          "quantity": 5,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 94",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 94",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-095",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-95",
+      "vendor": {
+        "name": "Vendor 95"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 95",
+          "quantity": 1,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 95",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 95",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-096",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-96",
+      "vendor": {
+        "name": "Vendor 96"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 96",
+          "quantity": 2,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 96",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 96",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-097",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-97",
+      "vendor": {
+        "name": "Vendor 97"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 97",
+          "quantity": 3,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 97",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 97",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-098",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-98",
+      "vendor": {
+        "name": "Vendor 98"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 98",
+          "quantity": 4,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 98",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 98",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    },
+    {
+      "documentId": "BULK100-099",
+      "type": "purchase_order",
+      "poNumber": "PO-B100-99",
+      "vendor": {
+        "name": "Vendor 99"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Bulk item A for doc 99",
+          "quantity": 5,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "Bulk item B for doc 99",
+          "quantity": 2,
+          "unitPrice": 4.5
+        },
+        {
+          "description": "Bulk item C for doc 99",
+          "quantity": 1,
+          "unitPrice": 100
+        }
+      ]
+    }
+  ]
+}

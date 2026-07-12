@@ -1,0 +1,79 @@
+{
+  "renderer_rows_0": {
+    "expect": 400,
+    "render": false
+  },
+  "renderer_rows_500": {
+    "expect": 201,
+    "render": true
+  },
+  "renderer_rows_1000": {
+    "expect": 201,
+    "render": true
+  },
+  "renderer_rows_2000": {
+    "expect": 201,
+    "render": true
+  },
+  "renderer_near_limit_description": {
+    "expect": 201,
+    "render": true
+  },
+  "parser_missing_fields": {
+    "expect": 400,
+    "render": false
+  },
+  "parser_quantity_string": {
+    "expect": 400,
+    "render": false
+  },
+  "parser_negative_values": {
+    "expect": 400,
+    "render": false
+  },
+  "parser_null_fields": {
+    "expect": 400,
+    "render": false
+  },
+  "parser_duplicate_doc_ids": {
+    "expect": 400,
+    "render": false
+  },
+  "limits_bulk_100": {
+    "expect": 201,
+    "render": true
+  },
+  "limits_bulk_101": {
+    "expect": 400,
+    "render": false
+  },
+  "limits_empty": {
+    "expect": 400,
+    "render": false
+  },
+  "locale_indic": {
+    "expect": 201,
+    "render": true
+  },
+  "locale_gst_intrastate": {
+    "expect": 201,
+    "render": true
+  },
+  "locale_gst_interstate": {
+    "expect": 201,
+    "render": true
+  },
+  "locale_rounding_edges": {
+    "expect": 201,
+    "render": true
+  },
+  "parser_truncated": {
+    "expect": 400,
+    "render": false,
+    "raw": true
+  },
+  "injection": {
+    "expect": 201,
+    "render": true
+  }
+}

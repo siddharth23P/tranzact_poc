@@ -1,0 +1,30 @@
+{
+  "documents": [
+    {
+      "documentId": "GST-INTER-1",
+      "type": "purchase_order",
+      "poNumber": "PO/KA/2026/00102",
+      "vendor": {
+        "name": "Bharat Steels Pvt Ltd",
+        "address": "MIDC Bhosari\nPune, Maharashtra"
+      },
+      "buyer": {
+        "name": "Mysuru Fabricators",
+        "address": "Hebbal Industrial Area\nMysuru, Karnataka"
+      },
+      "currency": "INR",
+      "lineItems": [
+        {
+          "description": "MS Angle 50x50x6 — taxable 999.99 + IGST 18% (inter-state MH→KA)",
+          "quantity": 1,
+          "unitPrice": 1179.99
+        },
+        {
+          "description": "IGST 18% on 999.99 = 180.00 (rounded from 179.9982)",
+          "quantity": 1,
+          "unitPrice": 180
+        }
+      ]
+    }
+  ]
+}

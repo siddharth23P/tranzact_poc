@@ -1,0 +1,29 @@
+{
+  "documents": [
+    {
+      "documentId": "INJECT-1",
+      "type": "purchase_order",
+      "poNumber": "PO-{{payload}}",
+      "vendor": {
+        "name": "Vendor ${payload}",
+        "address": "addr {{payload}} ${payload}"
+      },
+      "buyer": {
+        "name": "Buyer {{payload}}"
+      },
+      "currency": "USD",
+      "lineItems": [
+        {
+          "description": "Line {{payload}} and ${payload}",
+          "quantity": 1,
+          "unitPrice": 9.99
+        },
+        {
+          "description": "${constructor.constructor(\"return 1\")()}",
+          "quantity": 2,
+          "unitPrice": 5
+        }
+      ]
+    }
+  ]
+}

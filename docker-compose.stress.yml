@@ -1,0 +1,17 @@
+# Stress/chaos overlay: memory-capped worker for the phase-7 runbook.
+#   docker compose -f docker-compose.yml -f docker-compose.stress.yml up -d
+#
+# Toggles (set in the shell before `up -d worker`):
+#   RENDER_SINGLE_RESERVED=1|0   reserved-capacity A/B for stress_interleave
+#   CHUNK_THRESHOLD=999999       force SinglePass for oom_probe probe mode
+#                                (unset / default 50 for the control run)
+
+services:
+  worker:
+    mem_limit: 2g
+    memswap_limit: 2g        # no swap escape hatch — the cap is the cap
+    shm_size: "1gb"          # explicit; Chromium also runs --disable-dev-shm-usage
+    restart: unless-stopped  # so the OOM probe can observe restarts and continue
+    environment:
+      RENDER_SINGLE_RESERVED: ${RENDER_SINGLE_RESERVED:-1}
+      CHUNK_THRESHOLD: ${CHUNK_THRESHOLD:-50}

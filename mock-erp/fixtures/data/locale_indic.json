@@ -1,0 +1,30 @@
+{
+  "documents": [
+    {
+      "documentId": "INDIC-1",
+      "type": "purchase_order",
+      "poNumber": "PO/MH/2026/00087",
+      "vendor": {
+        "name": "श्री बालाजी ट्रेडर्स प्रा. लि.",
+        "address": "प्लॉट 12, एमआयडीसी\nपुणे, महाराष्ट्र"
+      },
+      "buyer": {
+        "name": "சென்னை சப்ளையர்ஸ்",
+        "address": "12, அண்ணா சாலை\nசென்னை"
+      },
+      "currency": "INR",
+      "lineItems": [
+        {
+          "description": "स्टील ब्रैकेट 40मिमी — जस्ता लेपित",
+          "quantity": 100,
+          "unitPrice": 45.5
+        },
+        {
+          "description": "நீளமான எஃகு தகடு 2மீ",
+          "quantity": 12,
+          "unitPrice": 799
+        }
+      ]
+    }
+  ]
+}

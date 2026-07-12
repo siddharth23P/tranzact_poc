@@ -1,0 +1,12 @@
+node_modules/
+npm-debug.log*
+.env
+.DS_Store
+coverage/
+*.local
+dist/
+tmp/
+
+# stray runtime artifacts
+dump.rdb
+*.rdb
