@@ -5,8 +5,9 @@ API enqueues jobs onto Redis (BullMQ, single > bulk priority), Puppeteer render
 workers produce artifacts into S3 (MinIO locally), and job + tamper-evident
 manifest state lives in Postgres.
 
-> Build is phased. **Phase 1 (current): infra + API skeleton + migrations.**
-> See `docs/phase-1.md` for what's implemented and how to verify it.
+> Build is phased. **Phase 2 (current): POST /jobs + GET /jobs/{id}.**
+> See `docs/phase-1.md` and `docs/phase-2.md` for what's implemented and how to
+> verify each phase.
 
 ## Architecture (target)
 
@@ -57,8 +58,8 @@ Full verification (including the append-only ledger proof) is in
 
 ## Build phases
 
-1. **infra + API skeleton + migrations** ← current
-2. `POST /jobs` (validate + snapshot-to-S3 + BullMQ enqueue) + `GET /jobs/{id}`
+1. ✅ infra + API skeleton + migrations
+2. ✅ `POST /jobs` (validate + snapshot-to-S3 + BullMQ enqueue) + `GET /jobs/{id}` ← current
 3. Worker: BrowserPool + SinglePass render + SHA-256 + manifest + presigned URL
 4. ChunkedMerge strategy + selection threshold
 5. Manifest endpoint + lazy zip fallback + progress counters

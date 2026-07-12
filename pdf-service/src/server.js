@@ -7,25 +7,16 @@ const config = require('./config');
 const logger = require('./logger');
 const migrate = require('./migrate');
 const db = require('./db');
+const queues = require('./queues');
+const redis = require('./redis');
 const { createApp } = require('./app');
-
-async function waitForDb(retries = 30, delayMs = 2000) {
-  for (let attempt = 1; attempt <= retries; attempt++) {
-    try {
-      await db.ping();
-      return;
-    } catch (err) {
-      logger.warn('waiting for postgres', { attempt, error: err.message });
-      await new Promise((r) => setTimeout(r, delayMs));
-    }
-  }
-  throw new Error('postgres did not become available in time');
-}
 
 async function main() {
   logger.info('api starting', { env: config.env });
 
-  await waitForDb();
+  // Migrations run as the owner role and internally wait for Postgres; they
+  // also create the runtime roles (pdf_app, manifest_writer) this process then
+  // uses to serve traffic.
   await migrate.run();
 
   const app = createApp();
@@ -36,7 +27,13 @@ async function main() {
   const shutdown = async (signal) => {
     logger.info('shutting down', { signal });
     server.close(async () => {
-      await db.close();
+      try {
+        await queues.close();
+        await redis.close();
+        await db.close();
+      } catch (err) {
+        logger.warn('shutdown cleanup error', { error: err.message });
+      }
       process.exit(0);
     });
     // Hard exit if graceful close stalls.

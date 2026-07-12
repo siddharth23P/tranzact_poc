@@ -6,3 +6,7 @@ coverage/
 *.local
 dist/
 tmp/
+
+# stray runtime artifacts
+dump.rdb
+*.rdb

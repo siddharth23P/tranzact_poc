@@ -21,17 +21,33 @@ const config = {
     port: parseInt(required('API_PORT', '3000'), 10),
   },
 
+  // Shared connection target. The three roles below all connect to the same
+  // host/db but with different privileges (least privilege per code path).
+  dbHost: required('POSTGRES_HOST', 'localhost'),
+  dbPort: parseInt(required('POSTGRES_PORT', '5432'), 10),
+  dbName: required('POSTGRES_DB', 'pdf_service'),
+
+  // (1) Owner / migrator role — full DDL. Used ONLY by the boot migration
+  // runner (src/migrate.js). Never opened by request-serving code.
   db: {
     host: required('POSTGRES_HOST', 'localhost'),
     port: parseInt(required('POSTGRES_PORT', '5432'), 10),
     database: required('POSTGRES_DB', 'pdf_service'),
-    // Owner/migration role — full DDL rights.
     user: required('POSTGRES_USER', 'pdf'),
     password: required('POSTGRES_PASSWORD', 'pdf'),
   },
 
-  // Restricted, append-only manifest writer role. Created by migrations with
-  // INSERT + SELECT on manifest_entries only (no UPDATE/DELETE grants).
+  // (2) Runtime application role. Reads/writes the jobs table; can only READ
+  // the manifest. Used by the API and worker for everything except manifest
+  // writes. Cannot INSERT/UPDATE/DELETE manifest rows.
+  appDb: {
+    user: required('APP_DB_USER', 'pdf_app'),
+    password: required('APP_DB_PASSWORD', 'pdf_app_pw'),
+  },
+
+  // (3) Restricted, append-only manifest writer role. INSERT + SELECT on
+  // manifest_entries only — no UPDATE/DELETE/TRUNCATE, no access to jobs.
+  // Used by the runtime manifest-write pool (src/manifest.js).
   manifestDb: {
     user: required('MANIFEST_DB_USER', 'manifest_writer'),
     password: required('MANIFEST_DB_PASSWORD', 'manifest_writer_pw'),

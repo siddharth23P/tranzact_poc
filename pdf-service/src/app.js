@@ -3,6 +3,7 @@
 const express = require('express');
 const db = require('./db');
 const logger = require('./logger');
+const jobsRouter = require('./routes/jobs');
 
 // Builds the Express app. Kept separate from server.js so it can be imported
 // by tests without binding a port.
@@ -26,6 +27,9 @@ function createApp() {
       res.status(503).json({ status: 'not_ready', db: 'down', error: err.message });
     }
   });
+
+  // Job creation + status.
+  app.use('/', jobsRouter);
 
   // 404 fallback.
   app.use((req, res) => {
