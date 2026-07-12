@@ -31,6 +31,7 @@ async function renderDocument({ pool, jobId, documentIndex, doc, lane = 'single'
       artifactKey: key,
       sha256,
       byteSize,
+      renderStrategy: strategy,
     });
     await progress.increment(jobId, 'completed');
     logger.info('document rendered', {

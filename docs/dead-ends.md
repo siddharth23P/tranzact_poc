@@ -32,6 +32,30 @@ is BullMQ's reserved Redis key delimiter and is rejected in custom job ids.
 **Fix:** Join with `-` instead: `${jobId}-${index}` (`src/queues.js`). Still
 deterministic, still de-dupes on retry.
 
+## archiver v8 removed the classic callable API
+
+**Symptom:** `GET /jobs/{id}/archive` returned 502 with
+`archiver is not a function`.
+
+**Cause:** `npm install archiver` resolved v8, which replaced the classic
+`archiver('zip', opts)` factory with class exports
+(`{ Archiver, ZipArchive, TarArchive }`).
+
+**Fix:** pinned `archiver@^7` (stable classic API). If upgrading to v8 later,
+switch to `new ZipArchive(...)` per its migration notes.
+
+## PDF text extraction sees CSS-uppercased glyphs
+
+**Symptom:** the equivalence proof's "header on every page" check failed even
+though headers were visibly present.
+
+**Cause:** the `th` style uses `text-transform: uppercase`, so the PDF contains
+the glyphs `DESCRIPTION` / `UNIT PRICE`; a case-sensitive search for
+"Description" finds nothing.
+
+**Fix:** case-insensitive assertions when checking extracted PDF text against
+CSS-transformed content.
+
 ## `pkill -f "src/server.js"` kills the invoking shell
 
 **Symptom:** Commands that ran `pkill -f "src/server.js"` to stop the API exited

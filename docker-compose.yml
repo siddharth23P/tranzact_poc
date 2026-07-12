@@ -38,6 +38,10 @@ services:
     environment:
       MINIO_ROOT_USER: ${S3_ACCESS_KEY:-minioadmin}
       MINIO_ROOT_PASSWORD: ${S3_SECRET_KEY:-minioadmin}
+      # Browsers fetch presigned artifact/archive URLs directly from the bucket,
+      # so the S3 API must answer CORS preflights for the app's origin(s).
+      # Comma-separated list; '*' for local dev. See docs/api.md.
+      MINIO_API_CORS_ALLOW_ORIGIN: ${CORS_ALLOW_ORIGIN:-*}
     ports:
       - "9000:9000"
       - "9001:9001"

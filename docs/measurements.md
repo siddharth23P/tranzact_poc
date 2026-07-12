@@ -10,7 +10,10 @@ for).
 | Date (UTC) | What | Value | Conditions / caveats |
 |---|---|---|---|
 | 2026-07-12 | Single-PO SinglePass render (`smoke:render`) | ~175 ms | 5-line-item doc; **warm** pooled page (page reuse, not cold launch); local Chromium at `/opt/pw-browsers/chromium`; **no container** (no cgroup limits, host CPU); render only (setContent→`page.pdf`), excludes S3 upload + manifest write; single sample, not a percentile. |
-| 2026-07-12 | Large-PO ChunkedMerge render (120 items) | ~121 KB / 6 pages | `CHUNK_THRESHOLD=50 CHUNK_SIZE=40`; 3 chunk renders + pdf-lib stitch; wall-time not yet recorded as a clean number — pending phase-7. |
+| 2026-07-12 | Large-PO ChunkedMerge render (120 items) | ~121 KB / 6 pages | `CHUNK_THRESHOLD=50 CHUNK_SIZE=40`; pre-pagination-rework template; superseded by the equivalence run below. |
+| 2026-07-12 | **Equivalence run, 600-row PO** — SinglePass | 267,539 B / 20 pages / **~980 ms** | `ROWS_PER_PAGE=30`; warm page; includes pdf-lib footer stamping; render-only (no S3/manifest); single sample. |
+| 2026-07-12 | **Equivalence run, 600-row PO** — ChunkedMerge | 230,648 B / 20 pages / **~971 ms** | `CHUNK_SIZE=120` (5 chunks × 4 sheets); includes merge + stamping. Page-for-page text identical to SinglePass. |
+| 2026-07-12 | Archive (zip) build, 3-doc job | 125 KB, **~108 ms** first call / **~18 ms** cached | streamed build + presign redirect, s3rver local; end-to-end curl wall time. |
 
 ## Caveats that will move these numbers
 

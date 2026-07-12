@@ -1,19 +1,24 @@
 'use strict';
 
 // ChunkedMerge render strategy: for documents with many line items, render the
-// items in row-chunks of CHUNK_SIZE (each via the SAME escaped template) and
+// items in row-chunks (each via the SAME escaped, pre-paginated template) and
 // stitch the chunk PDFs into one with pdf-lib. Chunks are rendered sequentially
 // on the single task-held page (page-per-task still holds).
 //
-// Correctness across chunks:
-//   - line numbering is continuous (startIndex offset per chunk);
-//   - the grand total is computed over ALL items and shown only on the last
-//     chunk;
-//   - PAGE NUMBERS are applied AFTER the merge over the whole document, so
-//     "Page X of Y" is continuous regardless of how chunks fell across pages.
+// Equivalence with SinglePass (proved by scripts/prove-equivalence.js):
+//   - the template paginates into fixed-height sheets of `rowsPerPage` rows;
+//   - the chunk size is snapped UP to a multiple of rowsPerPage, so chunk
+//     boundaries always align with sheet boundaries;
+//   => both strategies emit the identical sheet sequence: same page count,
+//      same per-page content, continuous line numbers, total on last page only.
+//   - page numbers are stamped AFTER the merge by the shared stamp step
+//     (src/render/stamp.js) — the same function SinglePass uses — so footers
+//     are continuous and identical across strategies.
 
-const { PDFDocument, StandardFonts, rgb } = require('pdf-lib');
+const { PDFDocument } = require('pdf-lib');
+const config = require('../config');
 const { buildPurchaseOrderHtml } = require('./template');
+const { stampPageNumbers } = require('./stamp');
 
 function chunk(array, size) {
   const out = [];
@@ -27,39 +32,26 @@ const PDF_OPTS = {
   margin: { top: '0', bottom: '0', left: '0', right: '0' },
 };
 
-// Merge chunk PDFs and stamp continuous page numbers across the final document.
-async function mergeAndNumber(pdfBuffers) {
+// Merge chunk PDFs into one document (no numbering here — see stamp step).
+async function merge(pdfBuffers) {
   const out = await PDFDocument.create();
-  const font = await out.embedFont(StandardFonts.Helvetica);
-
   for (const buf of pdfBuffers) {
     const src = await PDFDocument.load(buf);
     const pages = await out.copyPages(src, src.getPageIndices());
     for (const p of pages) out.addPage(p);
   }
-
-  const total = out.getPageCount();
-  out.getPages().forEach((page, i) => {
-    const { width } = page.getSize();
-    const text = `Page ${i + 1} of ${total}`;
-    const size = 9;
-    const textWidth = font.widthOfTextAtSize(text, size);
-    page.drawText(text, {
-      x: width - textWidth - 24,
-      y: 18,
-      size,
-      font,
-      color: rgb(0.4, 0.4, 0.4),
-    });
-  });
-
   return Buffer.from(await out.save());
 }
 
 // Render one document via chunking. `page` is the pooled task page; `chunkSize`
-// controls rows per chunk.
-async function render(page, doc, { chunkSize } = {}) {
-  const size = chunkSize || 40;
+// controls rows per chunk (snapped up to a whole number of sheets).
+async function render(page, doc, { chunkSize, rowsPerPage } = {}) {
+  const rpp = rowsPerPage || config.render.rowsPerPage;
+  const requested = chunkSize || config.render.chunkSize;
+  // Snap chunk size up to a multiple of rowsPerPage so chunk boundaries align
+  // with sheet boundaries (the equivalence invariant).
+  const size = Math.max(rpp, Math.ceil(requested / rpp) * rpp);
+
   const currency = doc.currency || 'USD';
   const grandTotal = doc.lineItems.reduce((sum, li) => sum + li.quantity * li.unitPrice, 0);
   const chunks = chunk(doc.lineItems, size);
@@ -72,13 +64,14 @@ async function render(page, doc, { chunkSize } = {}) {
       startIndex: c * size,
       showTotal: isLast,
       grandTotal,
+      rowsPerPage: rpp,
     });
     await page.setContent(html, { waitUntil: 'load' });
     const pdf = await page.pdf(PDF_OPTS);
     buffers.push(Buffer.isBuffer(pdf) ? pdf : Buffer.from(pdf));
   }
 
-  return mergeAndNumber(buffers);
+  return stampPageNumbers(await merge(buffers));
 }
 
-module.exports = { render, mergeAndNumber, name: 'ChunkedMerge' };
+module.exports = { render, merge, name: 'ChunkedMerge' };

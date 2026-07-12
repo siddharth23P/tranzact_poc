@@ -31,6 +31,9 @@ function createApp() {
   // Job creation + status.
   app.use('/', jobsRouter);
 
+  // Delivery: manifest + lazy zip archive.
+  app.use('/', require('./routes/delivery'));
+
   // 404 fallback.
   app.use((req, res) => {
     res.status(404).json({ error: 'not_found', path: req.path });

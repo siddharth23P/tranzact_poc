@@ -7,6 +7,7 @@ const {
   HeadObjectCommand,
 } = require('@aws-sdk/client-s3');
 const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
+const { Upload } = require('@aws-sdk/lib-storage');
 const config = require('./config');
 
 // Path-style S3 client pointed at MinIO locally (or real S3 in prod).
@@ -73,8 +74,42 @@ async function getObjectString(key) {
   return res.Body.transformToString('utf8');
 }
 
+// Readable stream of an object's bytes (used to stream artifacts into the zip
+// without buffering whole files).
+async function getObjectStream(key) {
+  const res = await client.send(new GetObjectCommand({ Bucket: BUCKET, Key: key }));
+  return res.Body; // Node Readable
+}
+
 async function headObject(key) {
   return client.send(new HeadObjectCommand({ Bucket: BUCKET, Key: key }));
+}
+
+// True if the object exists (HEAD succeeds), false on 404/NotFound.
+async function objectExists(key) {
+  try {
+    await headObject(key);
+    return true;
+  } catch (err) {
+    if (err.name === 'NotFound' || err.$metadata?.httpStatusCode === 404) return false;
+    throw err;
+  }
+}
+
+// Archive (lazy zip) key convention.
+function archiveKey(jobId) {
+  return `archives/${jobId}.zip`;
+}
+
+// Streaming upload (lib-storage handles buffering into parts) — the zip is
+// piped in as it is built, never fully materialized in memory.
+async function uploadStream(key, bodyStream, contentType) {
+  const upload = new Upload({
+    client,
+    params: { Bucket: BUCKET, Key: key, Body: bodyStream, ContentType: contentType },
+  });
+  await upload.done();
+  return { key };
 }
 
 module.exports = {
@@ -84,7 +119,11 @@ module.exports = {
   putSnapshot,
   artifactKey,
   putArtifact,
+  archiveKey,
   presignGet,
   getObjectString,
+  getObjectStream,
   headObject,
+  objectExists,
+  uploadStream,
 };
