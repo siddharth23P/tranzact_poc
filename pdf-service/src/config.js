@@ -80,6 +80,11 @@ const config = {
     singleReserved: parseInt(process.env.RENDER_SINGLE_RESERVED || '1', 10),
     // Presigned URL TTL for delivered artifacts.
     presignExpirySeconds: parseInt(process.env.PRESIGN_EXPIRY_SECONDS || '3600', 10),
+    // ChunkedMerge selection: use it when a document's line-item count exceeds
+    // CHUNK_THRESHOLD; render CHUNK_SIZE rows per chunk. Threshold tuned from
+    // stress data (phase 7).
+    chunkThreshold: parseInt(process.env.CHUNK_THRESHOLD || '50', 10),
+    chunkSize: parseInt(process.env.CHUNK_SIZE || '40', 10),
   },
 };
 

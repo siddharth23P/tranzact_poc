@@ -36,7 +36,7 @@ function getSnapshot(jobId) {
   return p;
 }
 
-async function makeProcessor(pool) {
+function makeProcessor(pool, lane) {
   return async function processTask(job) {
     const { jobId, documentIndex } = job.data;
 
@@ -56,12 +56,12 @@ async function makeProcessor(pool) {
     const snapshot = await getSnapshot(jobId);
     const doc = snapshot.documents[documentIndex];
 
-    await renderDocument({ pool, jobId, documentIndex, doc });
+    await renderDocument({ pool, jobId, documentIndex, doc, lane });
 
     // Terminal check — exactly one task wins the finalize.
     const fin = await progress.claimFinalizeIfDone(jobId, row.total_documents);
     if (fin.done) {
-      const finalStatus = fin.completed > 0 ? 'completed' : 'failed';
+      const finalStatus = progress.terminalStatus(fin.completed, fin.failed);
       await progress.flushToJobsRow(jobId, finalStatus);
       snapshotCache.delete(jobId);
       logger.info('job finalized', {
@@ -81,11 +81,19 @@ async function main() {
   const pool = new BrowserPool();
   await pool.start();
 
-  const processor = await makeProcessor(pool);
   const connection = buildConnectionOptions();
 
-  const singleWorker = new Worker(QUEUE_SINGLE, processor, { connection, concurrency: N });
-  const bulkWorker = new Worker(QUEUE_BULK, processor, { connection, concurrency: BULK_CONCURRENCY });
+  // Lane-bound processors: the pool enforces the reservation structurally, but
+  // we still cap the bulk worker's concurrency to avoid pointlessly pulling
+  // more bulk jobs than the pool will admit.
+  const singleWorker = new Worker(QUEUE_SINGLE, makeProcessor(pool, 'single'), {
+    connection,
+    concurrency: N,
+  });
+  const bulkWorker = new Worker(QUEUE_BULK, makeProcessor(pool, 'bulk'), {
+    connection,
+    concurrency: BULK_CONCURRENCY,
+  });
 
   for (const [name, w] of [['single', singleWorker], ['bulk', bulkWorker]]) {
     w.on('failed', (job, err) =>

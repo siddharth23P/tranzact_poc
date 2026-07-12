@@ -37,11 +37,34 @@ function bulk(n, extra = {}, lineItemCount = 2) {
   return { ...extra, documents: Array.from({ length: n }, (_, i) => purchaseOrder(i, lineItemCount)) };
 }
 
+// A document whose USER DATA contains template-ish payloads. These must render
+// as literal text — the template uses JS template literals over ALREADY-escaped
+// values, and there is no `{{ }}` engine and no eval of user strings, so neither
+// `{{payload}}` nor `${payload}` is interpolated.
+function injectionDoc() {
+  return {
+    documentId: 'INJECT-1',
+    type: 'purchase_order',
+    poNumber: 'PO-{{payload}}',
+    vendor: { name: 'Vendor ${payload}', address: 'addr {{payload}} ${payload}' },
+    buyer: { name: 'Buyer {{payload}}' },
+    currency: 'USD',
+    lineItems: [
+      { description: 'Line {{payload}} and ${payload}', quantity: 1, unitPrice: 9.99 },
+      { description: '${constructor.constructor("return 1")()}', quantity: 2, unitPrice: 5 },
+    ],
+  };
+}
+
 const payloads = {
   // Valid cases
   single: bulk(1),
   bulk: bulk(3),
   idempotent: bulk(1, { idempotencyKey: 'order-batch-42' }),
+  // Large document -> exceeds CHUNK_THRESHOLD, exercises ChunkedMerge.
+  large_lineitems: { documents: [purchaseOrder(0, 120)] },
+  // Template-injection fixture (renders literally).
+  injection: { documents: [injectionDoc()] },
   // Rejection cases
   empty: { documents: [] },
   oversize_101: bulk(101),
@@ -66,4 +89,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { purchaseOrder, bulk, payloads };
+module.exports = { purchaseOrder, bulk, injectionDoc, payloads };

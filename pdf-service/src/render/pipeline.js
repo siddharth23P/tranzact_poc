@@ -7,20 +7,21 @@
 // after this returns, so the same pipeline works for a one-off smoke render.
 
 const crypto = require('crypto');
-const singlePass = require('./singlePass');
+const { renderWithSelectedStrategy } = require('./selectStrategy');
 const s3 = require('../s3');
 const manifest = require('../manifest');
 const progress = require('../progress');
 const logger = require('../logger');
 
-// Render one document and record it. Returns a result descriptor. Never throws
-// for a per-document render error — records an error manifest entry instead
+// Render one document and record it. `lane` ('single' | 'bulk') is threaded to
+// the BrowserPool so the reservation is enforced structurally. Never throws for
+// a per-document render error — records an error manifest entry instead
 // (partial-failure semantics: a bulk job can complete at 99/100).
-async function renderDocument({ pool, jobId, documentIndex, doc }) {
+async function renderDocument({ pool, jobId, documentIndex, doc, lane = 'single' }) {
   let page;
   try {
-    page = await pool.acquire();
-    const pdf = await singlePass.render(page, doc);
+    page = await pool.acquire(lane);
+    const { pdf, strategy } = await renderWithSelectedStrategy(page, doc);
     const sha256 = crypto.createHash('sha256').update(pdf).digest('hex');
     const { key, byteSize } = await s3.putArtifact(jobId, documentIndex, pdf);
     const entry = await manifest.appendRendered({
@@ -32,8 +33,15 @@ async function renderDocument({ pool, jobId, documentIndex, doc }) {
       byteSize,
     });
     await progress.increment(jobId, 'completed');
-    logger.info('document rendered', { jobId, documentIndex, sha256, byteSize, artifactKey: key });
-    return { status: 'rendered', artifactKey: key, sha256, byteSize, manifestId: entry.id };
+    logger.info('document rendered', {
+      jobId,
+      documentIndex,
+      strategy,
+      sha256,
+      byteSize,
+      artifactKey: key,
+    });
+    return { status: 'rendered', strategy, artifactKey: key, sha256, byteSize, manifestId: entry.id };
   } catch (err) {
     logger.error('document render failed', { jobId, documentIndex, error: err.message });
     await manifest.appendError({
@@ -45,7 +53,7 @@ async function renderDocument({ pool, jobId, documentIndex, doc }) {
     await progress.increment(jobId, 'failed');
     return { status: 'error', error: err.message };
   } finally {
-    if (page) await pool.release(page);
+    if (page) await pool.release(page, lane);
   }
 }
 

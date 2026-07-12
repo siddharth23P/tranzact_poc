@@ -52,6 +52,16 @@ async function readLive(jobId) {
   };
 }
 
+// Terminal status from final counts:
+//   - all documents failed          -> 'failed'
+//   - some succeeded, some failed    -> 'completed_with_errors'  (e.g. 99/100)
+//   - all succeeded                  -> 'completed'
+function terminalStatus(completed, failed) {
+  if (completed === 0) return 'failed';
+  if (failed > 0) return 'completed_with_errors';
+  return 'completed';
+}
+
 // After incrementing, decide whether THIS task is the one that completes the
 // job. Uses SET NX on a `finalized` marker so exactly one task finalizes, even
 // if the last two documents finish concurrently. Returns { done, completed,
@@ -88,4 +98,12 @@ async function flushToJobsRow(jobId, finalStatus) {
   return { completed, failed, status: finalStatus };
 }
 
-module.exports = { init, increment, readLive, claimFinalizeIfDone, flushToJobsRow, key };
+module.exports = {
+  init,
+  increment,
+  readLive,
+  claimFinalizeIfDone,
+  flushToJobsRow,
+  terminalStatus,
+  key,
+};

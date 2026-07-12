@@ -14,13 +14,13 @@ function money(amount, currency) {
   return `${e(currency || 'USD')} ${n.toFixed(2)}`;
 }
 
-function lineItemRows(lineItems, currency) {
+function lineItemRows(lineItems, currency, startIndex = 0) {
   return lineItems
     .map((li, i) => {
       const lineTotal = li.quantity * li.unitPrice;
       return `
         <tr>
-          <td class="idx">${i + 1}</td>
+          <td class="idx">${startIndex + i + 1}</td>
           <td>${e(li.description)}</td>
           <td class="num">${e(li.quantity)}</td>
           <td class="num">${money(li.unitPrice, currency)}</td>
@@ -42,10 +42,25 @@ function addressBlock(label, party) {
     </div>`;
 }
 
-// Build a complete standalone HTML document for one purchase order.
-function buildPurchaseOrderHtml(doc) {
+// Build a complete standalone HTML document for a purchase order (or one chunk
+// of it). Options support ChunkedMerge:
+//   opts.items      - the line-item slice to render (default: all)
+//   opts.startIndex - number of the first row in this slice (for continuous
+//                     line numbering across chunks; default 0)
+//   opts.showTotal  - render the grand-total footer (default true; ChunkedMerge
+//                     sets it only on the LAST chunk)
+//   opts.grandTotal - the total to show (default: sum of `items`; ChunkedMerge
+//                     passes the total over ALL items so it's correct on the
+//                     last chunk regardless of chunking)
+function buildPurchaseOrderHtml(doc, opts = {}) {
   const currency = doc.currency || 'USD';
-  const grandTotal = doc.lineItems.reduce((sum, li) => sum + li.quantity * li.unitPrice, 0);
+  const items = opts.items || doc.lineItems;
+  const startIndex = opts.startIndex || 0;
+  const showTotal = opts.showTotal !== false;
+  const grandTotal =
+    opts.grandTotal != null
+      ? opts.grandTotal
+      : items.reduce((sum, li) => sum + li.quantity * li.unitPrice, 0);
 
   return `<!doctype html>
 <html lang="en">
@@ -93,14 +108,18 @@ function buildPurchaseOrderHtml(doc) {
       </tr>
     </thead>
     <tbody>
-      ${lineItemRows(doc.lineItems, currency)}
+      ${lineItemRows(items, currency, startIndex)}
     </tbody>
-    <tfoot>
+    ${
+      showTotal
+        ? `<tfoot>
       <tr>
         <td colspan="4" class="total-label">Total</td>
         <td class="num">${money(grandTotal, currency)}</td>
       </tr>
-    </tfoot>
+    </tfoot>`
+        : ''
+    }
   </table>
 </body>
 </html>`;

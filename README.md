@@ -5,9 +5,9 @@ API enqueues jobs onto Redis (BullMQ, single > bulk priority), Puppeteer render
 workers produce artifacts into S3 (MinIO locally), and job + tamper-evident
 manifest state lives in Postgres.
 
-> Build is phased. **Phase 3 (current): render worker (BrowserPool + SinglePass
-> + SHA-256 + manifest + presigned URL).** See `docs/phase-1.md` …
-> `docs/phase-3.md` for what's implemented and how to verify each phase.
+> Build is phased. **Phase 4 (current): ChunkedMerge strategy + per-task
+> selection threshold.** See `docs/phase-1.md` … `docs/phase-4.md` for what's
+> implemented and how to verify each phase.
 
 ## Architecture (target)
 
@@ -60,8 +60,8 @@ Full verification (including the append-only ledger proof) is in
 
 1. ✅ infra + API skeleton + migrations
 2. ✅ `POST /jobs` (validate + snapshot-to-S3 + BullMQ enqueue) + `GET /jobs/{id}`
-3. ✅ Worker: BrowserPool + SinglePass render + SHA-256 + manifest + presigned URL ← current
-4. ChunkedMerge strategy + selection threshold
+3. ✅ Worker: BrowserPool + SinglePass render + SHA-256 + manifest + presigned URL
+4. ✅ ChunkedMerge strategy + selection threshold ← current
 5. Manifest endpoint + lazy zip fallback + progress counters
 6. mock-erp: entity CRUD + mutation endpoint + seeded fixtures generator
 7. scenarios: stale-data proof, stress_burst, stress_interleave, chaos
