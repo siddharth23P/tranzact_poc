@@ -68,6 +68,19 @@ const config = {
   },
 
   mockErpUrl: process.env.MOCK_ERP_URL || 'http://localhost:4000',
+
+  render: {
+    // Path to a Chromium/Chrome binary. Docker worker installs Debian chromium
+    // at /usr/bin/chromium; locally we point at the preinstalled Playwright one.
+    chromiumPath: process.env.CHROMIUM_PATH || '/usr/bin/chromium',
+    // Warm page pool size (N) and pages reserved for the single (fast) lane (k).
+    // The bulk worker's concurrency is capped at N-k, so >=k pages are always
+    // free for single tasks — the reserved-capacity SLA guarantee (docs/queueing.md).
+    poolSize: parseInt(process.env.RENDER_POOL_SIZE || '4', 10),
+    singleReserved: parseInt(process.env.RENDER_SINGLE_RESERVED || '1', 10),
+    // Presigned URL TTL for delivered artifacts.
+    presignExpirySeconds: parseInt(process.env.PRESIGN_EXPIRY_SECONDS || '3600', 10),
+  },
 };
 
 module.exports = config;

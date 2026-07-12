@@ -1,8 +1,20 @@
-# Debian slim base so Chromium (added in phase 3 for the render workers)
-# installs cleanly later without a base-image change.
+# Debian slim base. The render worker uses the distro Chromium via
+# puppeteer-core (no Chromium download at npm install time), so we install the
+# `chromium` package + fonts here. The same image runs both api and worker;
+# api doesn't use Chromium but sharing one image keeps the build simple.
 FROM node:20-bookworm-slim
 
 WORKDIR /app
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        chromium \
+        fonts-liberation \
+        ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# puppeteer-core launches this binary (matches config default / .env CHROMIUM_PATH).
+ENV CHROMIUM_PATH=/usr/bin/chromium
 
 COPY package.json package-lock.json* ./
 RUN npm install --omit=dev

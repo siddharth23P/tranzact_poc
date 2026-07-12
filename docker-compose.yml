@@ -80,7 +80,8 @@ services:
     ports:
       - "3000:3000"
 
-  # Placeholder until phase 3 (Puppeteer render workers). Shares the api image.
+  # Render worker: BrowserPool (warm Chromium) + SinglePass render + SHA-256 +
+  # manifest write + presigned URL. Shares the api image (which bundles Chromium).
   worker:
     build:
       context: ./pdf-service
@@ -89,10 +90,17 @@ services:
       - .env
     environment:
       SERVICE_ROLE: worker
+    # Chromium is happier with more /dev/shm, though we also pass
+    # --disable-dev-shm-usage as a belt-and-suspenders.
+    shm_size: "1gb"
     depends_on:
       api:
         condition: service_started
       redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      minio:
         condition: service_healthy
 
   # Placeholder until phase 6 (entity CRUD + fixtures generator).

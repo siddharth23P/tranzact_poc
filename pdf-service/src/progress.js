@@ -52,6 +52,21 @@ async function readLive(jobId) {
   };
 }
 
+// After incrementing, decide whether THIS task is the one that completes the
+// job. Uses SET NX on a `finalized` marker so exactly one task finalizes, even
+// if the last two documents finish concurrently. Returns { done, completed,
+// failed } — done=true only for the single winning task.
+async function claimFinalizeIfDone(jobId, total) {
+  const live = await readLive(jobId);
+  const completed = live ? live.completed : 0;
+  const failed = live ? live.failed : 0;
+  if (completed + failed < total) return { done: false, completed, failed };
+
+  // All documents accounted for — race to claim the finalize.
+  const won = await getRedis().set(`job:${jobId}:finalized`, '1', 'EX', TTL_SECONDS, 'NX');
+  return { done: won === 'OK', completed, failed };
+}
+
 // Flush live counters into the durable jobs row at terminal state, set final
 // status, then drop the Redis key. Called once by the worker when
 // completed+failed === total.
@@ -73,4 +88,4 @@ async function flushToJobsRow(jobId, finalStatus) {
   return { completed, failed, status: finalStatus };
 }
 
-module.exports = { init, increment, readLive, flushToJobsRow, key };
+module.exports = { init, increment, readLive, claimFinalizeIfDone, flushToJobsRow, key };

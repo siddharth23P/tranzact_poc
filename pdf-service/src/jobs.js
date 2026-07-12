@@ -75,9 +75,18 @@ async function setStatus(id, status, errorMessage) {
   return rows[0];
 }
 
+// Flip queued -> processing on first task pickup (idempotent, race-safe).
+async function markProcessing(id) {
+  await db.appPool.query(
+    `UPDATE jobs SET status='processing', updated_at=now()
+      WHERE id=$1 AND status='queued'`,
+    [id]
+  );
+}
+
 async function getById(id) {
   const { rows } = await db.appPool.query('SELECT * FROM jobs WHERE id = $1', [id]);
   return rows[0] || null;
 }
 
-module.exports = { insertJob, setStatus, getById, getByIdempotencyKey };
+module.exports = { insertJob, setStatus, markProcessing, getById, getByIdempotencyKey };

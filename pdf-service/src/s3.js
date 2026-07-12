@@ -6,6 +6,7 @@ const {
   GetObjectCommand,
   HeadObjectCommand,
 } = require('@aws-sdk/client-s3');
+const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
 const config = require('./config');
 
 // Path-style S3 client pointed at MinIO locally (or real S3 in prod).
@@ -43,6 +44,30 @@ async function putSnapshot(jobId, payload) {
   return { key, byteSize: body.length };
 }
 
+// Artifact key convention: one PDF per document task.
+function artifactKey(jobId, documentIndex) {
+  return `artifacts/${jobId}/${documentIndex}.pdf`;
+}
+
+// Upload a rendered PDF. Returns the key + byte size.
+async function putArtifact(jobId, documentIndex, pdfBuffer) {
+  const key = artifactKey(jobId, documentIndex);
+  await client.send(
+    new PutObjectCommand({
+      Bucket: BUCKET,
+      Key: key,
+      Body: pdfBuffer,
+      ContentType: 'application/pdf',
+    })
+  );
+  return { key, byteSize: pdfBuffer.length };
+}
+
+// Presigned GET URL for delivering an artifact without proxying bytes.
+async function presignGet(key, expiresIn = config.render.presignExpirySeconds) {
+  return getSignedUrl(client, new GetObjectCommand({ Bucket: BUCKET, Key: key }), { expiresIn });
+}
+
 async function getObjectString(key) {
   const res = await client.send(new GetObjectCommand({ Bucket: BUCKET, Key: key }));
   return res.Body.transformToString('utf8');
@@ -52,4 +77,14 @@ async function headObject(key) {
   return client.send(new HeadObjectCommand({ Bucket: BUCKET, Key: key }));
 }
 
-module.exports = { client, BUCKET, snapshotKey, putSnapshot, getObjectString, headObject };
+module.exports = {
+  client,
+  BUCKET,
+  snapshotKey,
+  putSnapshot,
+  artifactKey,
+  putArtifact,
+  presignGet,
+  getObjectString,
+  headObject,
+};
