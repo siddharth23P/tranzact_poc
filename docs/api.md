@@ -42,6 +42,22 @@ Responses:
 Validation happens entirely at enqueue time: a malformed document is rejected
 here and never discovered mid-render.
 
+**Field limits** (layout-derived: the sealed PDF contains exactly the validated
+data — render never clips, so validation bounds what the fixed layout holds):
+
+| Field | Limit |
+|---|---|
+| `lineItems[].description` | ≤ 110 chars (renders as up to 4 wrapped lines) |
+| `documentId` / `poNumber` | ≤ 48 / ≤ 32 chars |
+| `vendor.name`, `buyer.name` | ≤ 50 chars |
+| `vendor.address`, `buyer.address` | ≤ 75 chars, ≤ 3 lines |
+| `currency` | 3-letter uppercase ISO-4217 |
+| `quantity` | 0 < q ≤ 1 000 000 |
+| `unitPrice` | 0 ≤ p ≤ 1 000 000 |
+| line amount (q × p) | ≤ 10 000 000 |
+| document total | ≤ 100 000 000 |
+| `documentId` uniqueness | must be unique within one job |
+
 ## GET /jobs/{id}
 
 Job status + progress. `progressSource` is `"redis"` while rendering (live
@@ -80,6 +96,10 @@ Client contract:
 - Download each `url`; **verify the SHA-256 of the received bytes against
   `sha256`** (the hash was computed by the render worker and stored in an
   append-only ledger — a mismatch means corruption or tampering).
+- **The authoritative hash for a document is its LATEST manifest row.** The
+  ledger is append-only, so a document that was retried has multiple rows;
+  earlier rows are retry history, not alternatives. The manifest endpoint
+  already resolves this — `documents[]` contains only the latest row per index.
 - `error` documents have no URL; the job-level `counts` tell you the shape.
 - URLs expire at `urlsExpireAt` (`PRESIGN_EXPIRY_SECONDS`, default 4 h).
 
@@ -102,8 +122,9 @@ Lazy zip fallback for clients that don't want per-file assembly.
   absent as files but recorded in `MANIFEST.json` — a 99/100 archive is
   self-describing.
 - `409 job_not_terminal` while rendering; `409 no_artifacts` if nothing
-  rendered. Concurrent first calls are serialized by a Redis lock (losers wait
-  for the cached object).
+  rendered. Concurrent first calls are serialized by a Redis `SET NX` lock
+  **with a 300 s TTL** — a crashed builder cannot wedge the endpoint: the lock
+  expires, waiting requests detect the missing lock and take over the build.
 
 `curl -L` follows the redirect; browsers follow it natively.
 

@@ -16,7 +16,8 @@
     "prove:chunked-merge": "node scripts/prove-chunked-merge.js",
     "smoke:render": "node scripts/smoke-render.js",
     "prove:reservation": "node scripts/prove-reservation.js",
-    "prove:equivalence": "node scripts/prove-equivalence.js"
+    "prove:equivalence": "node scripts/prove-equivalence.js",
+    "prove:no-truncation": "node scripts/prove-no-truncation.js"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.637.0",

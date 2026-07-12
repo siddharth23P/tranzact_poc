@@ -12,12 +12,26 @@ const path = require('path');
 
 const OUT = path.join(__dirname, 'payloads');
 
+// Max validated description length (mirrors LIMITS.description in
+// pdf-service/src/validation.js).
+const MAX_DESC = 110;
+
+// Deterministically pad a description to `len` chars (for wrapped-row tests).
+function padDesc(base, len) {
+  const filler = ' lorem-ipsum-filler-text';
+  let s = base;
+  while (s.length < len) s += filler;
+  return s.slice(0, len);
+}
+
 // A valid purchase-order document with a parameterized line-item count.
-function purchaseOrder(i, lineItemCount = 2) {
+// opts.descPad pads every description to that length (multi-line wrapped rows).
+function purchaseOrder(i, lineItemCount = 2, opts = {}) {
   const lineItems = [];
   for (let n = 0; n < lineItemCount; n++) {
+    const base = `Item ${n + 1} for PO ${1000 + i}`;
     lineItems.push({
-      description: `Item ${n + 1} for PO ${1000 + i}`,
+      description: opts.descPad ? padDesc(base, opts.descPad) : base,
       quantity: (n % 5) + 1,
       unitPrice: Number(((n + 1) * 3.5).toFixed(2)),
     });
@@ -65,6 +79,34 @@ const payloads = {
   large_lineitems: { documents: [purchaseOrder(0, 120)] },
   // Template-injection fixture (renders literally).
   injection: { documents: [injectionDoc()] },
+  // 10KB description -> MUST be rejected at enqueue (never silently clipped).
+  oversize_description: {
+    documents: [
+      {
+        documentId: 'OVERSIZE-1',
+        type: 'purchase_order',
+        poNumber: 'PO-OVR-1',
+        vendor: { name: 'Oversize Vendor' },
+        currency: 'USD',
+        lineItems: [{ description: 'X'.repeat(10240), quantity: 1, unitPrice: 5 }],
+      },
+    ],
+  },
+  // Exactly-at-limit description -> MUST render fully (nothing clipped).
+  near_limit_description: {
+    documents: [
+      {
+        documentId: 'NEARLIMIT-1',
+        type: 'purchase_order',
+        poNumber: 'PO-NL-1',
+        vendor: { name: 'Near Limit Vendor' },
+        currency: 'USD',
+        lineItems: [
+          { description: 'NEARLIMIT-' + 'abcdefghij'.repeat(10), quantity: 2, unitPrice: 9.99 }, // 110 chars
+        ],
+      },
+    ],
+  },
   // Rejection cases
   empty: { documents: [] },
   oversize_101: bulk(101),
@@ -89,4 +131,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { purchaseOrder, bulk, injectionDoc, payloads };
+module.exports = { purchaseOrder, bulk, injectionDoc, padDesc, MAX_DESC, payloads };

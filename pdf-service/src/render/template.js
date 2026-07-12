@@ -20,7 +20,9 @@
 const { escapeHtml } = require('./escape');
 
 const e = escapeHtml;
-const DEFAULT_ROWS_PER_PAGE = 30;
+// 10 rows/sheet: each row is a fixed 4-wrapped-line box (see CSS notes below),
+// sized so the first sheet (full header) + rows + total row always fit one A4.
+const DEFAULT_ROWS_PER_PAGE = 10;
 
 function money(amount, currency) {
   const n = Number.isFinite(amount) ? amount : 0;
@@ -38,10 +40,14 @@ function lineItemRows(lineItems, currency, startIndex) {
   return lineItems
     .map((li, i) => {
       const lineTotal = li.quantity * li.unitPrice;
+      // Description wraps inside a fixed 4-line box (.cell). NOTHING is
+      // ellipsized: validation caps description length so the max validated
+      // value always fits the box (see LIMITS in src/validation.js); the
+      // overflow:hidden is a backstop that validated data can never hit.
       return `
         <tr>
           <td class="idx">${startIndex + i + 1}</td>
-          <td class="desc">${e(li.description)}</td>
+          <td class="desc"><div class="cell">${e(li.description)}</div></td>
           <td class="num">${e(li.quantity)}</td>
           <td class="num">${money(li.unitPrice, currency)}</td>
           <td class="num">${money(lineTotal, currency)}</td>
@@ -89,9 +95,9 @@ function tableHtml(rows, currency, startIndex, totalRow) {
       <tr>
         <th class="idx">#</th>
         <th>Description</th>
-        <th class="num">Qty</th>
-        <th class="num">Unit Price</th>
-        <th class="num">Amount</th>
+        <th class="num qty">Qty</th>
+        <th class="num unit">Unit Price</th>
+        <th class="num amount">Amount</th>
       </tr>
     </thead>
     <tbody>
@@ -110,6 +116,17 @@ function tableHtml(rows, currency, startIndex, totalRow) {
   </table>`;
 }
 
+// Layout invariants (paired with LIMITS in src/validation.js — change together):
+//   - every data row is a fixed 64px box: description wraps up to 4 lines of
+//     14px line-height inside .cell (max validated length 110 chars always fits
+//     at worst-case glyph widths in the ~357px description column);
+//   - header boxes are fixed-height (.doc-meta 2 lines, .party-name 2 lines,
+//     .addr 3 lines) and validation caps those fields to fit;
+//   - numeric columns are sized for the validated numeric maxima with a 3-char
+//     ISO-4217 currency code;
+//   - NOTHING is ellipsized. overflow:hidden appears only as a backstop that
+//     validated data cannot reach (it keeps pagination deterministic if an
+//     unvalidated path ever feeds the template).
 const CSS = `
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: Arial, Helvetica, sans-serif; color: #1a1a1a; font-size: 12px; }
@@ -117,20 +134,25 @@ const CSS = `
            page-break-after: always; }
   .sheet.last { page-break-after: auto; }
   h1 { font-size: 22px; margin-bottom: 4px; }
-  .doc-meta { color: #555; margin-bottom: 18px; }
-  .cont { color: #555; font-size: 12px; padding-bottom: 10px; }
-  .parties { display: flex; gap: 48px; margin-bottom: 18px; }
+  .doc-meta { color: #555; margin-bottom: 12px; height: 36px; overflow: hidden; }
+  .cont { color: #555; font-size: 12px; height: 24px; overflow: hidden; }
+  .parties { display: flex; gap: 48px; margin-bottom: 12px; height: 104px; overflow: hidden; }
+  .party { width: 46%; }
   .party-label { text-transform: uppercase; font-size: 10px; color: #888; letter-spacing: .05em; }
-  .party-name { font-weight: bold; font-size: 13px; }
-  .addr { color: #444; white-space: pre-line; max-height: 34px; overflow: hidden; }
+  .party-name { font-weight: bold; font-size: 13px; line-height: 17px; height: 34px; overflow: hidden; }
+  .addr { color: #444; white-space: pre-line; line-height: 15px; height: 45px; overflow: hidden; }
   table { width: 100%; border-collapse: collapse; table-layout: fixed; }
-  th, td { padding: 4px 10px; border-bottom: 1px solid #e0e0e0; text-align: left;
-           height: 24px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  th { background: #f5f5f5; font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: #555; }
-  td.num, th.num { text-align: right; width: 90px; }
-  td.idx, th.idx { color: #999; width: 40px; }
-  td.desc { }
-  tfoot td { font-weight: bold; border-top: 2px solid #333; border-bottom: none; }
+  th, td { padding: 4px 10px; border-bottom: 1px solid #e0e0e0; text-align: left; vertical-align: top; }
+  th { background: #f5f5f5; font-size: 10px; text-transform: uppercase; letter-spacing: .05em;
+       color: #555; height: 26px; white-space: nowrap; }
+  td { height: 64px; }
+  td .cell { line-height: 14px; max-height: 56px; overflow: hidden; overflow-wrap: anywhere; }
+  td.num, th.num { text-align: right; white-space: nowrap; }
+  th.qty, td.qty-col { width: 60px; }
+  th.unit { width: 110px; }
+  th.amount { width: 120px; }
+  td.idx, th.idx { color: #999; width: 36px; }
+  tfoot td { font-weight: bold; border-top: 2px solid #333; border-bottom: none; height: 32px; }
   .total-label { text-align: right; }
 `;
 

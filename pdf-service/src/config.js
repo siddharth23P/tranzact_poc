@@ -81,7 +81,8 @@ const config = {
     // Presigned URL TTL for delivered artifacts (default 4h).
     presignExpirySeconds: parseInt(process.env.PRESIGN_EXPIRY_SECONDS || '14400', 10),
     // Deterministic pagination: fixed rows per sheet (one sheet = one PDF page).
-    rowsPerPage: parseInt(process.env.ROWS_PER_PAGE || '30', 10),
+    // Each row is a fixed 4-wrapped-line box — see template.js layout invariants.
+    rowsPerPage: parseInt(process.env.ROWS_PER_PAGE || '10', 10),
     // ChunkedMerge selection: use it when a document's line-item count exceeds
     // CHUNK_THRESHOLD; render CHUNK_SIZE rows per chunk (snapped up to a whole
     // number of sheets so chunk boundaries align with page boundaries).

@@ -13,7 +13,17 @@ for).
 | 2026-07-12 | Large-PO ChunkedMerge render (120 items) | ~121 KB / 6 pages | `CHUNK_THRESHOLD=50 CHUNK_SIZE=40`; pre-pagination-rework template; superseded by the equivalence run below. |
 | 2026-07-12 | **Equivalence run, 600-row PO** — SinglePass | 267,539 B / 20 pages / **~980 ms** | `ROWS_PER_PAGE=30`; warm page; includes pdf-lib footer stamping; render-only (no S3/manifest); single sample. |
 | 2026-07-12 | **Equivalence run, 600-row PO** — ChunkedMerge | 230,648 B / 20 pages / **~971 ms** | `CHUNK_SIZE=120` (5 chunks × 4 sheets); includes merge + stamping. Page-for-page text identical to SinglePass. |
-| 2026-07-12 | Archive (zip) build, 3-doc job | 125 KB, **~108 ms** first call / **~18 ms** cached | streamed build + presign redirect, s3rver local; end-to-end curl wall time. |
+| 2026-07-12 | Archive (zip) build, 3-doc job | 125 KB, **~108 ms** first call / **~18 ms** cached | streamed build + presign redirect, s3rver local; end-to-end curl wall time. **Caveat: tiny job (3 docs ≈ 42 KB each)** — build time scales with artifact count/bytes; re-measure at 100 docs in phase 7. |
+| 2026-07-12 | **Equivalence re-run after wrapped-row rework** (600 rows, 100-char padded descriptions) | SP 337,312 B / CM 274,293 B, **60 pages each**, ~1085 ms / ~965 ms | `ROWS_PER_PAGE=10` (fixed 4-line row boxes); every page text-identical. |
+
+### Summary (phase-5 review)
+
+- 600-row PO ≈ **1 s in both strategies** (~980/~971 ms at 20 single-line-row
+  pages; ~1085/~965 ms at 60 pages after the wrapped-row rework). ChunkedMerge
+  output is consistently **smaller in bytes** (pdf-lib re-serialization shares
+  resources) despite identical page content.
+- Archive first-call ~108 ms is a **small-job number** (3 docs), not a general
+  figure.
 
 ## Caveats that will move these numbers
 

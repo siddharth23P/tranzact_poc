@@ -100,6 +100,8 @@ Local Postgres/Redis/s3rver + Playwright Chromium:
 - **GET manifest also re-signs on every read** (presigning is stateless), so
   `refresh` is strictly-speaking an alias with a terminal-state guard. It exists
   as an explicit contract point for clients that persist manifests.
-- **Template layout changed** in this round (fixed-height sheets, ellipsized
-  overflow instead of wrapped rows). Descriptions longer than one line are now
-  clipped with `…` — acceptable for the PO layout; flag if wrapping matters.
+- **Template layout changed** in this round (fixed-height sheets). ~~Ellipsized
+  overflow~~ — **rejected in review and fixed**: rows are now fixed 4-wrapped-line
+  boxes, description length is capped at enqueue-time validation (110 chars),
+  and nothing is ever clipped. See `prove:no-truncation` and the limits table in
+  `docs/api.md`.

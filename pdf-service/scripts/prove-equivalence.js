@@ -45,8 +45,11 @@ async function timed(fn) {
 
 async function main() {
   const ROWS = 600;
-  const doc = purchaseOrder(0, ROWS);
-  console.log(`\nEquivalence proof: ${ROWS}-row PO, SinglePass vs ChunkedMerge`);
+  // descPad: 100-char descriptions -> every row wraps to multiple lines, so the
+  // equivalence holds for the fixed-height wrapped-row layout, not just
+  // single-line rows.
+  const doc = purchaseOrder(0, ROWS, { descPad: 100 });
+  console.log(`\nEquivalence proof: ${ROWS}-row PO (wrapped multi-line rows), SinglePass vs ChunkedMerge`);
   console.log(`  config: ROWS_PER_PAGE=${config.render.rowsPerPage} CHUNK_SIZE=${config.render.chunkSize}\n`);
 
   const pool = new BrowserPool({ size: 1 });

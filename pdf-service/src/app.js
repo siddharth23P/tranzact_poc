@@ -39,9 +39,16 @@ function createApp() {
     res.status(404).json({ error: 'not_found', path: req.path });
   });
 
-  // Central error handler.
+  // Central error handler. Body-parse failures (malformed/truncated JSON) are
+  // client errors — reject with 400, mirroring enqueue-time validation.
   // eslint-disable-next-line no-unused-vars
   app.use((err, req, res, next) => {
+    if (err.type === 'entity.parse.failed' || err.status === 400) {
+      return res.status(400).json({ error: 'invalid_json', message: 'request body is not valid JSON' });
+    }
+    if (err.type === 'entity.too.large' || err.status === 413) {
+      return res.status(413).json({ error: 'payload_too_large' });
+    }
     logger.error('unhandled request error', { error: err.message, path: req.path });
     res.status(500).json({ error: 'internal_error' });
   });
